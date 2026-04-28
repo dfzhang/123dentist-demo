@@ -30,18 +30,18 @@ const HOME_PAGE_TYPE = 'home'
 
 /**
  * Resolve the frontend URL for a page document.
- * Home pages → /, all others → /slug.current
+ * Home pages → /{officeSlug}/, all others → /{officeSlug}/{slug}
  * Returns null if the page has no resolvable URL.
  */
-function pageToHref(page: {
-  pageType?: string
-  slug?: { current?: string }
-}): string | null {
+function pageToHref(
+  page: { pageType?: string; slug?: { current?: string } },
+  officeSlug: string
+): string | null {
   if (page.pageType === HOME_PAGE_TYPE) {
-    return '/'
+    return `/${officeSlug}`
   }
   if (page.slug?.current) {
-    return `/${page.slug.current}`
+    return `/${officeSlug}/${page.slug.current}`
   }
   return null
 }
@@ -51,7 +51,8 @@ function pageToHref(page: {
  */
 function resolvePageLocations(
   params: { id: string },
-  context: { documentStore: { listenQuery: Function } }
+  context: { documentStore: { listenQuery: Function } },
+  officeSlug: string
 ) {
   const doc$ = context.documentStore.listenQuery(
     /* groq */ `*[_id == $id][0] { title, pageType, slug }`,
@@ -65,7 +66,7 @@ function resolvePageLocations(
         return { message: 'Unable to resolve location', tone: 'critical' as const }
       }
 
-      const href = pageToHref(page)
+      const href = pageToHref(page, officeSlug)
       if (!href) {
         return { message: 'Page has no URL yet — set a slug or page type', tone: 'caution' as const }
       }
@@ -83,7 +84,8 @@ function resolvePageLocations(
 function resolveReferenceableLocations(
   params: { id: string; type: string },
   context: { documentStore: { listenQuery: Function } },
-  officeId: string
+  officeId: string,
+  officeSlug: string
 ) {
   const type = params.type
 
@@ -126,10 +128,10 @@ function resolveReferenceableLocations(
       if (self?.slug) {
         switch (type) {
           case 'service':
-            locations.push({ title: self.name || 'Service detail', href: `/services/${self.slug}` })
+            locations.push({ title: self.name || 'Service detail', href: `/${officeSlug}/services/${self.slug}` })
             break
           case 'teamMember':
-            locations.push({ title: self.name || 'Team member profile', href: `/team/${self.slug}` })
+            locations.push({ title: self.name || 'Team member profile', href: `/${officeSlug}/team/${self.slug}` })
             break
           // faq, testimonial, insuranceProvider don't have their own detail pages
         }
@@ -137,7 +139,7 @@ function resolveReferenceableLocations(
 
       // 2. All pages that reference this document
       for (const page of pages) {
-        const href = pageToHref(page)
+        const href = pageToHref(page, officeSlug)
         if (href) {
           locations.push({ title: page.title || 'Untitled page', href })
         }
@@ -163,19 +165,23 @@ function resolveReferenceableLocations(
  * - Page documents: resolve to their own frontend URL
  * - Referenceable types: resolve to detail page + all referencing pages
  * - All other types: return null (no locations banner)
+ *
+ * All hrefs are prefixed with /{officeSlug} to match the frontend's
+ * [office]/... routing structure.
  */
 export function createLocationResolver(
-  officeId: string
+  officeId: string,
+  officeSlug: string
 ): DocumentLocationResolver {
   return (params, context) => {
     // Pages get their own URL as a location
     if (params.type === 'page') {
-      return resolvePageLocations(params, context as any)
+      return resolvePageLocations(params, context as any, officeSlug)
     }
 
     // Referenceable types get detail page + referencing pages
     if (REFERENCEABLE_TYPES.includes(params.type as any)) {
-      return resolveReferenceableLocations(params, context as any, officeId)
+      return resolveReferenceableLocations(params, context as any, officeId, officeSlug)
     }
 
     // All other types — no locations banner

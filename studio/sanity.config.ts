@@ -276,27 +276,27 @@ function officePresentation(office: OfficeEntry) {
       // "Used on X pages" — shows which pages reference the current document
       // with clickable links that open in the Presentation tool preview.
       // Applies to: service, teamMember, faq, testimonial, insuranceProvider
-      locations: createLocationResolver(office.id),
+      locations: createLocationResolver(office.id, office.slug),
       mainDocuments: [
         {
-          route: '/',
+          route: `/${office.slug}`,
           filter: `_type == "page" && pageType == "home" && office._ref == "${office.id}" && language == "${DEFAULT_LANGUAGE}"`,
         },
         {
-          route: '/:slug',
+          route: `/${office.slug}/:slug`,
           filter: `_type == "page" && slug.current == $slug && office._ref == "${office.id}" && language == "${DEFAULT_LANGUAGE}"`,
         },
         {
-          route: '/services/:slug',
+          route: `/${office.slug}/services/:slug`,
           filter: `_type == "service" && slug.current == $slug && office._ref == "${office.id}" && language == "${DEFAULT_LANGUAGE}"`,
         },
         {
-          route: '/team/:slug',
+          route: `/${office.slug}/team/:slug`,
           filter: `_type == "teamMember" && slug.current == $slug && office._ref == "${office.id}" && language == "${DEFAULT_LANGUAGE}"`,
         },
         {
           // blogPost has no i18n — no language filter
-          route: '/blog/:slug',
+          route: `/${office.slug}/blog/:slug`,
           filter: `_type == "blogPost" && slug.current == $slug && office._ref == "${office.id}"`,
         },
       ],
