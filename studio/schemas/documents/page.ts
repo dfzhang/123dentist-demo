@@ -1,0 +1,100 @@
+import { defineType, defineField, defineArrayMember } from 'sanity'
+
+export const page = defineType({
+  name: 'page',
+  title: 'Page',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'office',
+      title: 'Office',
+      type: 'reference',
+      to: [{ type: 'office' }],
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
+      name: 'title',
+      title: 'Page Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: { source: 'title' },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'pageType',
+      title: 'Page Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Home', value: 'home' },
+          { title: 'About', value: 'about' },
+          { title: 'Services', value: 'services' },
+          { title: 'Service Detail', value: 'service-detail' },
+          { title: 'Team', value: 'team' },
+          { title: 'Contact', value: 'contact' },
+          { title: 'New Patients', value: 'new-patients' },
+          { title: 'Blog', value: 'blog' },
+          { title: 'Testimonials', value: 'testimonials' },
+          { title: 'Gallery', value: 'gallery' },
+          { title: 'Landing Page', value: 'landing' },
+          { title: 'Generic', value: 'generic' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'sections',
+      title: 'Page Sections',
+      type: 'array',
+      of: [
+        defineArrayMember({ type: 'heroSection' }),
+        defineArrayMember({ type: 'richTextSection' }),
+        defineArrayMember({ type: 'servicesGrid' }),
+        defineArrayMember({ type: 'servicesList' }),
+        defineArrayMember({ type: 'teamGrid' }),
+        defineArrayMember({ type: 'teamFeatured' }),
+        defineArrayMember({ type: 'faqSection' }),
+        defineArrayMember({ type: 'smileGallery' }),
+        defineArrayMember({ type: 'valueProps' }),
+        defineArrayMember({ type: 'technologyShowcase' }),
+        defineArrayMember({ type: 'imageWithTextSection' }),
+        defineArrayMember({ type: 'videoEmbed' }),
+        defineArrayMember({ type: 'ctaBlock' }),
+        defineArrayMember({ type: 'contactBlock' }),
+        defineArrayMember({ type: 'financingSection' }),
+        defineArrayMember({ type: 'testimonialsSection' }),
+        defineArrayMember({ type: 'newPatientSection' }),
+      ],
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'pageType',
+    },
+    prepare({ title, subtitle }) {
+      return {
+        title: title || 'Untitled Page',
+        subtitle: subtitle ? subtitle.charAt(0).toUpperCase() + subtitle.slice(1) : '',
+      }
+    },
+  },
+})

@@ -1,0 +1,28 @@
+{
+  "name": "123dentist-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "benchmark": "node --expose-gc --max-old-space-size=512 --import tsx scripts/benchmark.ts",
+    "generate-offices": "tsx scripts/generate-offices.ts"
+  },
+  "dependencies": {
+    "@sanity/document-internationalization": "^3.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rxjs": "^7.8.2",
+    "sanity": "^3.72.0",
+    "sanity-plugin-internationalized-array": "^3.0.0",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
