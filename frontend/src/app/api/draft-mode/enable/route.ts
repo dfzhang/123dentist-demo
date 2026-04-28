@@ -16,7 +16,12 @@ import { NextRequest, NextResponse } from 'next/server'
 // 1. The __prerender_bypass cookie (with SameSite=None for cross-origin)
 // 2. A redirect to the actual preview page
 export async function GET(request: NextRequest) {
-  const slug = request.nextUrl.searchParams.get('slug') || '/'
+  // The Presentation tool sends the target path as `sanity-preview-pathname`.
+  // Fall back to `slug` for backwards compatibility, then `/` as last resort.
+  const redirectPath =
+    request.nextUrl.searchParams.get('sanity-preview-pathname') ||
+    request.nextUrl.searchParams.get('slug') ||
+    '/'
 
   // Enable draft mode — sets __prerender_bypass cookie
   const dm = await draftMode()
@@ -52,10 +57,10 @@ export async function GET(request: NextRequest) {
   const html = `<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0;url=${encodeURI(slug)}" />
+  <meta http-equiv="refresh" content="0;url=${encodeURI(redirectPath)}" />
 </head>
 <body>
-  <script>window.location.href = ${JSON.stringify(slug)}</script>
+  <script>window.location.href = ${JSON.stringify(redirectPath)}</script>
 </body>
 </html>`
 
