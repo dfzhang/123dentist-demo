@@ -13,21 +13,14 @@ const sectionsProjection = groq`
     _type,
     ...,
 
-    // --- Blocks with service references ---
+    // --- Blocks with service references (flat reference arrays) ---
     _type == "servicesGrid" => {
       ...,
-      services[] {
-        _key,
-        overrideDescription,
-        "service": service-> { _id, name, shortDescription, slug, icon, category }
-      }
+      "services": services[]-> { _id, name, shortDescription, slug, icon, category }
     },
     _type == "servicesList" => {
       ...,
-      services[] {
-        _key,
-        "service": service-> { _id, name, shortDescription, slug, icon, category }
-      }
+      "services": services[]-> { _id, name, shortDescription, slug, icon, category }
     },
 
     // --- Blocks with team member references ---
@@ -37,32 +30,23 @@ const sectionsProjection = groq`
     },
     _type == "teamGrid" => {
       ...,
-      members[] {
-        _key,
-        "member": member-> { _id, name, role, shortBio, photo, slug }
-      }
+      "members": members[]-> { _id, name, role, shortBio, photo, slug }
     },
 
-    // --- Blocks with testimonial references ---
+    // --- Blocks with testimonial references (flat reference arrays) ---
     _type == "testimonialsSection" => {
       ...,
-      testimonials[] {
-        _key,
-        "testimonial": testimonial-> {
-          _id, patientName, quote, rating, source, date,
-          "service": service-> { _id, name }
-        }
+      "testimonials": testimonials[]-> {
+        _id, patientName, quote, rating, source, date,
+        "service": service-> { _id, name }
       },
       "filterService": filterByService-> { _id, name }
     },
 
-    // --- Blocks with FAQ references ---
+    // --- Blocks with FAQ references (flat reference arrays) ---
     _type == "faqSection" => {
       ...,
-      faqs[] {
-        _key,
-        "faq": faq-> { _id, question, answer, category }
-      }
+      "faqs": faqs[]-> { _id, question, answer, category }
     }
   }
 `

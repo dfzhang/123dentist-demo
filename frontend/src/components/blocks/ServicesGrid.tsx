@@ -21,23 +21,23 @@ export function ServicesGridBlock({ block }: { block: ServicesGrid }) {
           </div>
         )}
         <div className={`grid gap-8 ${gridCols}`}>
-          {block.services?.map((item) => (
+          {block.services?.map((service) => (
             <div
-              key={item._key}
+              key={service._id}
               className="group rounded-xl bg-white p-6 shadow-sm transition-all hover:shadow-lg"
             >
-              {item.service?.icon?.image && (
+              {service.icon?.image && (
                 <img
-                  src={urlFor(item.service.icon.image).width(80).height(80).url()}
-                  alt={item.service.icon.alt || ''}
+                  src={urlFor(service.icon.image).width(80).height(80).url()}
+                  alt={service.icon.alt || ''}
                   className="mb-4 h-16 w-16"
                 />
               )}
               <h3 className="mb-2 text-xl font-semibold text-gray-900 group-hover:text-primary-600">
-                {item.service?.name}
+                {service.name}
               </h3>
               <p className="text-sm text-gray-600">
-                {item.overrideDescription || item.service?.shortDescription}
+                {service.shortDescription}
               </p>
             </div>
           ))}

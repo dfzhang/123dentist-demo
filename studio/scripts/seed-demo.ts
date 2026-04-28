@@ -575,21 +575,9 @@ const homePage = {
       subheading: 'Comprehensive dental care for the whole family',
       columns: 3,
       services: [
-        {
-          _key: 'sg1',
-          _type: 'object',
-          service: { _type: 'reference', _ref: SERVICE_IDS.cosmetic },
-        },
-        {
-          _key: 'sg2',
-          _type: 'object',
-          service: { _type: 'reference', _ref: SERVICE_IDS.invisalign },
-        },
-        {
-          _key: 'sg3',
-          _type: 'object',
-          service: { _type: 'reference', _ref: SERVICE_IDS.implants },
-        },
+        { _key: 'sg1', _type: 'reference', _ref: SERVICE_IDS.cosmetic },
+        { _key: 'sg2', _type: 'reference', _ref: SERVICE_IDS.invisalign },
+        { _key: 'sg3', _type: 'reference', _ref: SERVICE_IDS.implants },
       ],
     },
     // 4. Team Featured
@@ -608,21 +596,9 @@ const homePage = {
       subheading: 'Real reviews from real patients',
       layout: 'grid',
       testimonials: [
-        {
-          _key: 'ts1',
-          _type: 'object',
-          testimonial: { _type: 'reference', _ref: TESTIMONIAL_IDS[0] },
-        },
-        {
-          _key: 'ts2',
-          _type: 'object',
-          testimonial: { _type: 'reference', _ref: TESTIMONIAL_IDS[1] },
-        },
-        {
-          _key: 'ts3',
-          _type: 'object',
-          testimonial: { _type: 'reference', _ref: TESTIMONIAL_IDS[2] },
-        },
+        { _key: 'ts1', _type: 'reference', _ref: TESTIMONIAL_IDS[0] },
+        { _key: 'ts2', _type: 'reference', _ref: TESTIMONIAL_IDS[1] },
+        { _key: 'ts3', _type: 'reference', _ref: TESTIMONIAL_IDS[2] },
       ],
     },
     // 6. Image with Text
@@ -648,8 +624,8 @@ const homePage = {
       heading: 'Frequently Asked Questions',
       faqs: FAQ_IDS.map((id, i) => ({
         _key: `fq${i}`,
-        _type: 'object',
-        faq: { _type: 'reference', _ref: id },
+        _type: 'reference',
+        _ref: id,
       })),
     },
     // 8. New Patient
@@ -791,9 +767,9 @@ const aboutPage = {
       subheading: 'Dedicated professionals committed to your dental health',
       columns: 3,
       members: [
-        { _key: 'tm1', _type: 'object', member: { _type: 'reference', _ref: TEAM_IDS.drKarkanis } },
-        { _key: 'tm2', _type: 'object', member: { _type: 'reference', _ref: TEAM_IDS.drChen } },
-        { _key: 'tm3', _type: 'object', member: { _type: 'reference', _ref: TEAM_IDS.sarahJones } },
+        { _key: 'tm1', _type: 'reference', _ref: TEAM_IDS.drKarkanis },
+        { _key: 'tm2', _type: 'reference', _ref: TEAM_IDS.drChen },
+        { _key: 'tm3', _type: 'reference', _ref: TEAM_IDS.sarahJones },
       ],
     },
     {
@@ -873,9 +849,9 @@ const servicesPage = {
       heading: 'Featured Services',
       columns: 3,
       services: [
-        { _key: 'sg1', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.cosmetic } },
-        { _key: 'sg2', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.invisalign } },
-        { _key: 'sg3', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.implants } },
+        { _key: 'sg1', _type: 'reference', _ref: SERVICE_IDS.cosmetic },
+        { _key: 'sg2', _type: 'reference', _ref: SERVICE_IDS.invisalign },
+        { _key: 'sg3', _type: 'reference', _ref: SERVICE_IDS.implants },
       ],
     },
     {
@@ -884,9 +860,9 @@ const servicesPage = {
       heading: 'All Services',
       layout: 'detailed',
       services: [
-        { _key: 'sl1', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.cosmetic } },
-        { _key: 'sl2', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.invisalign } },
-        { _key: 'sl3', _type: 'object', service: { _type: 'reference', _ref: SERVICE_IDS.implants } },
+        { _key: 'sl1', _type: 'reference', _ref: SERVICE_IDS.cosmetic },
+        { _key: 'sl2', _type: 'reference', _ref: SERVICE_IDS.invisalign },
+        { _key: 'sl3', _type: 'reference', _ref: SERVICE_IDS.implants },
       ],
     },
     {

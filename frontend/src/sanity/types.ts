@@ -270,21 +270,14 @@ export interface ServicesGrid extends BlockBase {
   _type: 'servicesGrid'
   heading?: string
   subheading?: string
-  services: Array<{
-    _key: string
-    service: Service
-    overrideDescription?: string
-  }>
+  services: Array<Service>
   columns: 2 | 3 | 4
 }
 
 export interface ServicesList extends BlockBase {
   _type: 'servicesList'
   heading?: string
-  services: Array<{
-    _key: string
-    service: Service
-  }>
+  services: Array<Service>
   layout: 'compact' | 'detailed'
 }
 
@@ -292,10 +285,7 @@ export interface TeamGrid extends BlockBase {
   _type: 'teamGrid'
   heading?: string
   subheading?: string
-  members: Array<{
-    _key: string
-    member: TeamMember
-  }>
+  members: Array<TeamMember & { _key?: string }>
   columns: 2 | 3 | 4
 }
 
@@ -309,10 +299,7 @@ export interface TeamFeatured extends BlockBase {
 export interface FaqSection extends BlockBase {
   _type: 'faqSection'
   heading?: string
-  faqs: Array<{
-    _key: string
-    faq: FAQ
-  }>
+  faqs: Array<FAQ>
   filterByCategory?: string
 }
 
@@ -406,10 +393,7 @@ export interface TestimonialsSection extends BlockBase {
   _type: 'testimonialsSection'
   heading?: string
   subheading?: string
-  testimonials: Array<{
-    _key: string
-    testimonial: Testimonial
-  }>
+  testimonials: Array<Testimonial>
   layout: 'carousel' | 'grid' | 'featured'
   filterByService?: Service
 }

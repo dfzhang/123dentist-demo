@@ -14,8 +14,8 @@ export function FaqSectionBlock({ block }: { block: FaqSection }) {
           </h2>
         )}
         <div className="space-y-3">
-          {block.faqs?.map((item) => (
-            <FaqItem key={item._key} faq={item.faq} />
+          {block.faqs?.map((faq) => (
+            <FaqItem key={faq._id} faq={faq} />
           ))}
         </div>
       </div>
@@ -23,7 +23,7 @@ export function FaqSectionBlock({ block }: { block: FaqSection }) {
   )
 }
 
-function FaqItem({ faq }: { faq: FaqSection['faqs'][number]['faq'] }) {
+function FaqItem({ faq }: { faq: FaqSection['faqs'][number] }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

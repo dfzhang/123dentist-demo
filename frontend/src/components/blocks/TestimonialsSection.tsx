@@ -25,7 +25,7 @@ export function TestimonialsSectionBlock({
           block.testimonials?.[0] && (
             <div className="mx-auto max-w-3xl text-center">
               <TestimonialCard
-                testimonial={block.testimonials[0].testimonial}
+                testimonial={block.testimonials[0]}
                 featured
               />
             </div>
@@ -33,10 +33,10 @@ export function TestimonialsSectionBlock({
         ) : (
           // Grid layout
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {block.testimonials?.map((item) => (
+            {block.testimonials?.map((testimonial) => (
               <TestimonialCard
-                key={item._key}
-                testimonial={item.testimonial}
+                key={testimonial._id}
+                testimonial={testimonial}
               />
             ))}
           </div>
@@ -50,7 +50,7 @@ function TestimonialCard({
   testimonial,
   featured = false,
 }: {
-  testimonial: TestimonialsSection['testimonials'][number]['testimonial']
+  testimonial: TestimonialsSection['testimonials'][number]
   featured?: boolean
 }) {
   return (

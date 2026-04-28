@@ -12,27 +12,27 @@ export function ServicesListBlock({ block }: { block: ServicesList }) {
           <h2 className="mb-8 text-3xl font-bold text-gray-900">{block.heading}</h2>
         )}
         <div className="space-y-4">
-          {block.services?.map((item) => (
+          {block.services?.map((service) => (
             <div
-              key={item._key}
+              key={service._id}
               className={`flex items-center gap-4 rounded-lg border border-gray-200 bg-white transition-colors hover:border-primary-300 ${
                 cleanLayout === 'detailed' ? 'p-6' : 'p-4'
               }`}
             >
-              {item.service?.icon?.image && (
+              {service.icon?.image && (
                 <img
-                  src={urlFor(item.service.icon.image).width(48).height(48).url()}
-                  alt={item.service.icon.alt || ''}
+                  src={urlFor(service.icon.image).width(48).height(48).url()}
+                  alt={service.icon.alt || ''}
                   className="h-10 w-10 shrink-0"
                 />
               )}
               <div className="min-w-0 flex-1">
                 <h3 className="font-semibold text-gray-900">
-                  {item.service?.name}
+                  {service.name}
                 </h3>
-                {cleanLayout === 'detailed' && item.service?.shortDescription && (
+                {cleanLayout === 'detailed' && service.shortDescription && (
                   <p className="mt-1 text-sm text-gray-600">
-                    {item.service.shortDescription}
+                    {service.shortDescription}
                   </p>
                 )}
               </div>
