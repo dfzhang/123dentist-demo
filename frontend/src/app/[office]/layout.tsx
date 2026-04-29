@@ -26,7 +26,7 @@ export default async function OfficeLayout({
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" data-office={officeSlug}>
       <Header office={office as Office} officeSlug={officeSlug} />
       <main className="flex-1">{children}</main>
       <Footer office={office as Office} officeSlug={officeSlug} />

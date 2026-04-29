@@ -64,8 +64,7 @@ export interface DayHours {
 }
 
 export interface BusinessHours {
-  schedule: DayHours[]
-  timezone?: string
+  hours: DayHours[]
   holidayNote?: string
 }
 

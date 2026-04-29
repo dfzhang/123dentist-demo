@@ -52,11 +52,11 @@ export function Footer({ office, officeSlug }: FooterProps) {
           </div>
 
           {/* Hours */}
-          {office.businessHours?.schedule && (
+          {office.businessHours?.hours && (
             <div>
               <h3 className="mb-4 text-lg font-bold">Office Hours</h3>
               <div className="space-y-1 text-sm text-primary-200">
-                {office.businessHours.schedule.map((day) => (
+                {office.businessHours.hours.map((day) => (
                   <div key={day.day} className="flex justify-between">
                     <span className="capitalize">{day.day}</span>
                     <span>

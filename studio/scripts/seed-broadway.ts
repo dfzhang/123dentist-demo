@@ -3,7 +3,7 @@
  *
  * Creates a sample office (Broadway Smiles) with:
  * - Full office profile (address, contact, hours, nav, insurance)
- * - Home page with 10 page builder blocks
+ * - Home page with 11 page builder blocks
  * - About page with team + value props
  * - Services page with services grid + list + contact
  * - 3 services, 3 team members, 4 FAQs, 3 testimonials
@@ -474,12 +474,13 @@ const homePage = {
   language: 'en',
   sections: [
     // 1. Hero — heading(req), subheading, backgroundImage, ctas, layout(full|split-right|split-left|centered)
+    // NOTE: Using 'split-right' layout (vs Atlantis 'full') for visual differentiation
     {
       _key: 'hero1',
       _type: 'heroSection',
       heading: 'Your Neighbourhood Dental Home',
       subheading: 'Comprehensive family dentistry on the Broadway corridor. Modern technology, gentle care, and smiles that last.',
-      layout: 'full',
+      layout: 'split-right',
       ctas: [
         {
           _key: 'cta1',
@@ -506,11 +507,12 @@ const homePage = {
       ],
     },
     // 2. Value Props — heading, items[](heading req, description, icon), layout(grid|horizontal|vertical)
+    // NOTE: Using 'horizontal' layout (vs Atlantis 'grid') for visual differentiation
     {
       _key: 'values1',
       _type: 'valueProps',
       heading: 'Why Families Choose Broadway Smiles',
-      layout: 'grid',
+      layout: 'horizontal',
       items: [
         {
           _key: 'vp1',
@@ -552,20 +554,22 @@ const homePage = {
       ],
     },
     // 4. Team Featured — heading, member(ref, req), layout(photo-left|photo-right|centered), showFullBio
+    // NOTE: Using 'centered' layout (vs Atlantis 'photo-left') for visual differentiation
     {
       _key: 'tf1',
       _type: 'teamFeatured',
       heading: 'Meet Dr. Patel',
       member: { _type: 'reference', _ref: TEAM_IDS.drPatel },
-      layout: 'photo-left',
-      showFullBio: false,
+      layout: 'centered',
+      showFullBio: true,
     },
     // 5. Testimonials — heading, testimonials[](refs, req min 1), layout(carousel|grid|featured), showRatings
+    // NOTE: Using 'featured' layout (vs Atlantis 'carousel') for visual differentiation
     {
       _key: 'test1',
       _type: 'testimonialsSection',
       heading: 'What Our Patients Say',
-      layout: 'carousel',
+      layout: 'featured',
       showRatings: true,
       testimonials: [
         { _type: 'reference', _ref: TESTIMONIAL_IDS[0], _key: 'ts-t1' },
@@ -574,11 +578,12 @@ const homePage = {
       ],
     },
     // 6. FAQ — heading, faqs[](refs, req min 1), layout(accordion|two-column|list)
+    // NOTE: Using 'two-column' layout (vs Atlantis 'accordion') for visual differentiation
     {
       _key: 'faq1',
       _type: 'faqSection',
       heading: 'Frequently Asked Questions',
-      layout: 'accordion',
+      layout: 'two-column',
       faqs: [
         { _type: 'reference', _ref: FAQ_IDS[0], _key: 'fq-f1' },
         { _type: 'reference', _ref: FAQ_IDS[1], _key: 'fq-f2' },
@@ -627,12 +632,13 @@ const homePage = {
       },
     },
     // 8. CTA Block — heading(req), description, ctas[](req min 1 max 3), backgroundImage, layout(banner|card|inline)
+    // NOTE: Using 'card' layout (vs Atlantis 'banner') for visual differentiation
     {
       _key: 'ctab1',
       _type: 'ctaBlock',
       heading: 'Ready for a Brighter Smile?',
       description: 'Book your appointment today and experience the Broadway Smiles difference.',
-      layout: 'banner',
+      layout: 'card',
       ctas: [
         {
           _key: 'ctab-c1',
@@ -694,7 +700,34 @@ const homePage = {
         },
       },
     },
-    // 10. Contact Block — heading, description, showMap, showHours, showContactForm, layout(side-by-side|stacked|map-focus)
+    // 10. Image With Text — heading, content(PT, req), image(req), imagePosition(left|right), ctas
+    // NOTE: Extra block not on Atlantis home — shows the same schema, different page composition
+    {
+      _key: 'iwt1',
+      _type: 'imageWithTextSection',
+      heading: 'Conveniently Located on Broadway',
+      imagePosition: 'right',
+      content: [
+        textBlock(
+          'Our office is steps from the Broadway-City Hall SkyTrain station, with street parking and bike racks available. We designed our space to feel welcoming from the moment you walk in — no sterile waiting rooms here.'
+        ),
+      ],
+      ctas: [
+        {
+          _key: 'iwt-c1',
+          _type: 'cta',
+          variant: 'primary',
+          link: {
+            _type: 'link',
+            label: 'Get Directions',
+            linkType: 'external',
+            externalUrl: 'https://maps.google.com/?q=2578+West+Broadway+Vancouver',
+          },
+        },
+      ],
+    },
+    // 11. Contact Block — heading, description, showMap, showHours, showContactForm, layout(side-by-side|stacked|map-focus)
+    // NOTE: Using 'map-focus' layout (vs Atlantis 'side-by-side') for visual differentiation
     {
       _key: 'contact1',
       _type: 'contactBlock',
@@ -703,7 +736,7 @@ const homePage = {
       showContactForm: true,
       showMap: true,
       showHours: true,
-      layout: 'side-by-side',
+      layout: 'map-focus',
     },
   ],
 }
@@ -755,12 +788,13 @@ const aboutPage = {
       ],
     },
     // 4. Technology Showcase — heading, description, technologies[](name req, description, image, icon), layout(grid|carousel|list)
+    // NOTE: Using 'carousel' layout (vs Atlantis 'grid') for visual differentiation
     {
       _key: 'tech1',
       _type: 'technologyShowcase',
       heading: 'Our Technology',
       description: 'Modern tools for better outcomes.',
-      layout: 'grid',
+      layout: 'carousel',
       technologies: [
         {
           _key: 'tech-t1',
