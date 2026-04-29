@@ -1,25 +1,27 @@
 import { stegaClean } from 'next-sanity'
 import type { RichTextSection } from '@/sanity/types'
 import { RichText } from '../ui/PortableText'
-import { cn } from '@/lib/utils'
-
-const bgStyles: Record<string, string> = {
-  white: 'bg-white',
-  gray: 'bg-gray-50',
-  primary: 'bg-primary-50',
-  dark: 'bg-primary-900 text-white',
-}
 
 export function RichTextSectionBlock({ block }: { block: RichTextSection }) {
-  const cleanBg = stegaClean(block.backgroundColor) || 'white'
+  const cleanLayout = stegaClean(block.layout) || 'full'
 
   return (
-    <section className={cn('py-16', bgStyles[cleanBg])}>
-      <div className="mx-auto max-w-3xl px-4">
+    <section className="py-16">
+      <div
+        className={`mx-auto px-4 ${
+          cleanLayout === 'narrow' ? 'max-w-2xl' : 'max-w-3xl'
+        }`}
+      >
         {block.heading && (
-          <h2 className="mb-8 text-3xl font-bold">{block.heading}</h2>
+          <h2 className="mb-8 text-3xl font-bold text-gray-900">{block.heading}</h2>
         )}
-        <RichText value={block.content} />
+        {cleanLayout === 'two-column' ? (
+          <div className="columns-2 gap-8">
+            <RichText value={block.content} />
+          </div>
+        ) : (
+          <RichText value={block.content} />
+        )}
       </div>
     </section>
   )

@@ -1,17 +1,21 @@
 import type { NewPatientSection } from '@/sanity/types'
 import { urlFor } from '@/sanity/image'
 import { CTAButton } from '../ui/CTAButton'
+import { RichText } from '../ui/PortableText'
 
 export function NewPatientSectionBlock({ block }: { block: NewPatientSection }) {
   return (
     <section className="bg-primary-50 py-16">
       <div className="mx-auto max-w-7xl px-4">
         {block.heading && (
-          <div className="mb-12 text-center">
+          <div className="mb-8 text-center">
             <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
-            )}
+          </div>
+        )}
+
+        {block.description && (
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <RichText value={block.description} />
           </div>
         )}
 

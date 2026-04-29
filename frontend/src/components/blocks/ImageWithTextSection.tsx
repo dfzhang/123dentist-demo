@@ -2,25 +2,18 @@ import { stegaClean } from 'next-sanity'
 import type { ImageWithTextSection } from '@/sanity/types'
 import { urlFor } from '@/sanity/image'
 import { RichText } from '../ui/PortableText'
-import { cn } from '@/lib/utils'
-
-const bgStyles: Record<string, string> = {
-  white: 'bg-white',
-  gray: 'bg-gray-50',
-  primary: 'bg-primary-50',
-}
+import { CTAButton } from '../ui/CTAButton'
 
 export function ImageWithTextSectionBlock({
   block,
 }: {
   block: ImageWithTextSection
 }) {
-  const cleanLayout = stegaClean(block.layout)
-  const cleanBg = stegaClean(block.backgroundColor) || 'white'
-  const isImageLeft = cleanLayout === 'imageLeft'
+  const cleanPosition = stegaClean(block.imagePosition) || 'right'
+  const isImageLeft = cleanPosition === 'left'
 
   return (
-    <section className={cn('py-16', bgStyles[cleanBg])}>
+    <section className="py-16">
       <div className="mx-auto max-w-7xl px-4">
         <div
           className={`flex flex-col items-center gap-12 md:flex-row ${
@@ -48,6 +41,13 @@ export function ImageWithTextSectionBlock({
               </h2>
             )}
             <RichText value={block.content} />
+            {block.ctas && block.ctas.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-4">
+                {block.ctas.map((cta, i) => (
+                  <CTAButton key={i} cta={cta} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

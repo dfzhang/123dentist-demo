@@ -12,11 +12,13 @@ export function ServicesGridBlock({ block }: { block: ServicesGrid }) {
   return (
     <section className="bg-gray-50 py-16">
       <div className="mx-auto max-w-7xl px-4">
-        {block.heading && (
+        {(block.heading || block.description) && (
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
+            {block.heading && (
+              <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
+            )}
+            {block.description && (
+              <p className="mt-3 text-lg text-gray-600">{block.description}</p>
             )}
           </div>
         )}

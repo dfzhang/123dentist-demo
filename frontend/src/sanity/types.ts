@@ -250,158 +250,191 @@ interface BlockBase {
   _key: string
 }
 
+// Schema: layout = 'full' | 'split-right' | 'split-left' | 'centered'
 export interface HeroSection extends BlockBase {
   _type: 'heroSection'
   heading: string
   subheading?: string
   backgroundImage?: ImageWithAlt
   ctas?: CTA[]
-  layout: 'fullWidth' | 'split' | 'centered'
+  layout: 'full' | 'split-right' | 'split-left' | 'centered'
 }
 
+// Schema: layout = 'full' | 'narrow' | 'two-column'
 export interface RichTextSection extends BlockBase {
   _type: 'richTextSection'
   heading?: string
   content: PortableTextBlock[]
-  backgroundColor?: 'white' | 'gray' | 'primary' | 'dark'
+  layout?: 'full' | 'narrow' | 'two-column'
 }
 
+// Schema: description (not subheading), columns
 export interface ServicesGrid extends BlockBase {
   _type: 'servicesGrid'
   heading?: string
-  subheading?: string
+  description?: string
   services: Array<Service>
   columns: 2 | 3 | 4
 }
 
+// Schema: showDescriptions boolean (not layout)
 export interface ServicesList extends BlockBase {
   _type: 'servicesList'
   heading?: string
   services: Array<Service>
-  layout: 'compact' | 'detailed'
+  showDescriptions?: boolean
 }
 
+// Schema: description (not subheading), columns
 export interface TeamGrid extends BlockBase {
   _type: 'teamGrid'
   heading?: string
-  subheading?: string
-  members: Array<TeamMember & { _key?: string }>
+  description?: string
+  members: Array<TeamMember>
   columns: 2 | 3 | 4
 }
 
+// Schema: layout = 'photo-left' | 'photo-right' | 'centered', showFullBio
 export interface TeamFeatured extends BlockBase {
   _type: 'teamFeatured'
   heading?: string
   member: TeamMember
-  layout: 'imageLeft' | 'imageRight'
+  layout: 'photo-left' | 'photo-right' | 'centered'
+  showFullBio?: boolean
 }
 
+// Schema: layout = 'accordion' | 'two-column' | 'list'
 export interface FaqSection extends BlockBase {
   _type: 'faqSection'
   heading?: string
   faqs: Array<FAQ>
-  filterByCategory?: string
+  layout?: 'accordion' | 'two-column' | 'list'
 }
 
+// Schema: galleryItem has procedure + description + consentObtained (not caption/service)
 export interface GalleryItem {
   _key: string
   beforeImage: ImageWithAlt
   afterImage: ImageWithAlt
-  caption?: string
-  service?: Service
+  procedure?: string
+  description?: string
   consentObtained: boolean
 }
 
+// Schema: description (not subheading)
 export interface SmileGallery extends BlockBase {
   _type: 'smileGallery'
   heading?: string
-  subheading?: string
+  description?: string
   items: GalleryItem[]
 }
 
+// Schema: valuePropItem has heading (not title)
 export interface ValuePropItem {
   _key: string
-  title: string
+  heading: string
   description: string
   icon?: ImageWithAlt
 }
 
+// Schema: layout = 'grid' | 'horizontal' | 'vertical' (no subheading)
 export interface ValueProps extends BlockBase {
   _type: 'valueProps'
   heading?: string
-  subheading?: string
   items: ValuePropItem[]
-  layout: 'grid' | 'alternating' | 'centered'
+  layout: 'grid' | 'horizontal' | 'vertical'
 }
 
+// Schema: description (not subheading)
 export interface TechnologyItem {
   _key: string
   name: string
   description?: string
   image?: ImageWithAlt
+  icon?: ImageWithAlt
 }
 
+// Schema: description (not subheading), layout = 'grid' | 'carousel' | 'list'
 export interface TechnologyShowcase extends BlockBase {
   _type: 'technologyShowcase'
   heading?: string
-  subheading?: string
+  description?: string
   technologies: TechnologyItem[]
+  layout?: 'grid' | 'carousel' | 'list'
 }
 
+// Schema: imagePosition = 'left' | 'right', ctas[], no backgroundColor
 export interface ImageWithTextSection extends BlockBase {
   _type: 'imageWithTextSection'
   heading?: string
   content: PortableTextBlock[]
   image: ImageWithAlt
-  layout: 'imageLeft' | 'imageRight'
-  backgroundColor?: 'white' | 'gray' | 'primary'
+  imagePosition?: 'left' | 'right'
+  ctas?: CTA[]
 }
 
+// Schema: no aspectRatio, has thumbnail
 export interface VideoEmbed extends BlockBase {
   _type: 'videoEmbed'
   heading?: string
   url: string
+  thumbnail?: ImageWithAlt
   caption?: string
-  aspectRatio: '16:9' | '4:3' | '1:1'
 }
 
+// Schema: description (not subheading), layout = 'banner' | 'card' | 'inline', backgroundImage
 export interface CtaBlock extends BlockBase {
   _type: 'ctaBlock'
   heading: string
-  subheading?: string
+  description?: string
   ctas: CTA[]
-  backgroundColor?: 'primary' | 'dark' | 'gradient'
+  backgroundImage?: ImageWithAlt
+  layout?: 'banner' | 'card' | 'inline'
 }
 
+// Schema: description, showContactForm (not showForm), showMap, showHours, layout
 export interface ContactBlock extends BlockBase {
   _type: 'contactBlock'
   heading?: string
+  description?: string
   showMap?: boolean
-  showForm?: boolean
   showHours?: boolean
+  showContactForm?: boolean
+  layout?: 'side-by-side' | 'stacked' | 'map-focus'
+}
+
+// Schema: description (portableText), financingOptions[], cta
+export interface FinancingOption {
+  _key: string
+  name: string
+  description?: string
+  logo?: ImageWithAlt
+  url?: string
 }
 
 export interface FinancingSection extends BlockBase {
   _type: 'financingSection'
   heading?: string
-  content?: PortableTextBlock[]
-  showInsuranceList?: boolean
+  description?: PortableTextBlock[]
+  financingOptions?: FinancingOption[]
   cta?: CTA
 }
 
+// Schema: showRatings boolean, layout = 'carousel' | 'grid' | 'featured'
 export interface TestimonialsSection extends BlockBase {
   _type: 'testimonialsSection'
   heading?: string
-  subheading?: string
   testimonials: Array<Testimonial>
-  layout: 'carousel' | 'grid' | 'featured'
   filterByService?: Service
+  layout: 'carousel' | 'grid' | 'featured'
+  showRatings?: boolean
 }
 
+// Schema: description (portableText, not subheading), steps, cta, showInsurance
 export interface NewPatientSection extends BlockBase {
   _type: 'newPatientSection'
   heading?: string
-  subheading?: string
+  description?: PortableTextBlock[]
   steps?: Array<{
     _key: string
     title: string

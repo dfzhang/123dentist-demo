@@ -11,18 +11,37 @@ export function ValuePropsBlock({ block }: { block: ValueProps }) {
         {block.heading && (
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
-            )}
           </div>
         )}
 
-        {cleanLayout === 'centered' ? (
-          <div className="grid gap-8 md:grid-cols-3">
+        {cleanLayout === 'horizontal' ? (
+          <div className="flex flex-wrap justify-center gap-8">
             {block.items?.map((item) => (
-              <div key={item._key} className="text-center">
+              <div key={item._key} className="flex items-center gap-4 max-w-xs">
                 {item.icon?.image && (
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-100">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-100">
+                    <img
+                      src={urlFor(item.icon.image).width(32).height(32).url()}
+                      alt={item.icon.alt || ''}
+                      className="h-6 w-6"
+                    />
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {item.heading}
+                  </h3>
+                  <p className="text-sm text-gray-600">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : cleanLayout === 'vertical' ? (
+          <div className="mx-auto max-w-2xl space-y-8">
+            {block.items?.map((item) => (
+              <div key={item._key} className="flex items-start gap-6">
+                {item.icon?.image && (
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-primary-100">
                     <img
                       src={urlFor(item.icon.image).width(48).height(48).url()}
                       alt={item.icon.alt || ''}
@@ -30,34 +49,9 @@ export function ValuePropsBlock({ block }: { block: ValueProps }) {
                     />
                   </div>
                 )}
-                <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        ) : cleanLayout === 'alternating' ? (
-          <div className="space-y-12">
-            {block.items?.map((item, i) => (
-              <div
-                key={item._key}
-                className={`flex flex-col items-center gap-8 md:flex-row ${
-                  i % 2 === 1 ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                {item.icon?.image && (
-                  <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-primary-100">
-                    <img
-                      src={urlFor(item.icon.image).width(64).height(64).url()}
-                      alt={item.icon.alt || ''}
-                      className="h-12 w-12"
-                    />
-                  </div>
-                )}
                 <div>
                   <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                    {item.title}
+                    {item.heading}
                   </h3>
                   <p className="text-gray-600">{item.description}</p>
                 </div>
@@ -82,7 +76,7 @@ export function ValuePropsBlock({ block }: { block: ValueProps }) {
                   </div>
                 )}
                 <h3 className="mb-2 text-lg font-semibold text-gray-900">
-                  {item.title}
+                  {item.heading}
                 </h3>
                 <p className="text-sm text-gray-600">{item.description}</p>
               </div>

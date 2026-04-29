@@ -4,10 +4,12 @@ import { urlFor } from '@/sanity/image'
 import { CTAButton } from '../ui/CTAButton'
 
 export function HeroSectionBlock({ block }: { block: HeroSection }) {
-  const cleanLayout = stegaClean(block.layout) || 'centered'
+  const cleanLayout = stegaClean(block.layout) || 'full'
   const bgUrl = block.backgroundImage?.image
     ? urlFor(block.backgroundImage.image).width(1920).height(800).url()
     : null
+
+  const isSplit = cleanLayout === 'split-left' || cleanLayout === 'split-right'
 
   return (
     <section
@@ -27,7 +29,7 @@ export function HeroSectionBlock({ block }: { block: HeroSection }) {
         className={`relative z-10 mx-auto max-w-7xl px-4 py-24 ${
           cleanLayout === 'centered'
             ? 'text-center'
-            : cleanLayout === 'split'
+            : isSplit
               ? 'md:w-1/2 md:text-left'
               : 'text-center'
         }`}

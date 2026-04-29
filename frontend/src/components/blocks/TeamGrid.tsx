@@ -12,17 +12,19 @@ export function TeamGridBlock({ block }: { block: TeamGrid }) {
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4">
-        {block.heading && (
+        {(block.heading || block.description) && (
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
+            {block.heading && (
+              <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
+            )}
+            {block.description && (
+              <p className="mt-3 text-lg text-gray-600">{block.description}</p>
             )}
           </div>
         )}
         <div className={`grid gap-8 ${gridCols}`}>
           {block.members?.map((member) => (
-            <div key={member._id || member._key} className="group text-center">
+            <div key={member._id} className="group text-center">
               <div className="mx-auto mb-4 h-48 w-48 overflow-hidden rounded-full bg-gray-200">
                 {member.photo?.image ? (
                   <img

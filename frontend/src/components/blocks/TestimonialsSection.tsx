@@ -14,9 +14,6 @@ export function TestimonialsSectionBlock({
         {block.heading && (
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
-            )}
           </div>
         )}
 

@@ -1,12 +1,6 @@
 import { stegaClean } from 'next-sanity'
 import type { VideoEmbed } from '@/sanity/types'
 
-const aspectRatioStyles: Record<string, string> = {
-  '16:9': 'aspect-video',
-  '4:3': 'aspect-[4/3]',
-  '1:1': 'aspect-square',
-}
-
 export function VideoEmbedBlock({ block }: { block: VideoEmbed }) {
   // Clean URL before using — stega would break the embed
   const cleanUrl = stegaClean(block.url)
@@ -20,11 +14,7 @@ export function VideoEmbedBlock({ block }: { block: VideoEmbed }) {
             {block.heading}
           </h2>
         )}
-        <div
-          className={`overflow-hidden rounded-2xl bg-gray-900 ${
-            aspectRatioStyles[stegaClean(block.aspectRatio) || '16:9']
-          }`}
-        >
+        <div className="aspect-video overflow-hidden rounded-2xl bg-gray-900">
           {embedUrl ? (
             <iframe
               src={embedUrl}

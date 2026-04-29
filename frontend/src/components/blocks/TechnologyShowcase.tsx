@@ -5,11 +5,13 @@ export function TechnologyShowcaseBlock({ block }: { block: TechnologyShowcase }
   return (
     <section className="bg-primary-900 py-16 text-white">
       <div className="mx-auto max-w-7xl px-4">
-        {block.heading && (
+        {(block.heading || block.description) && (
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-primary-200">{block.subheading}</p>
+            {block.heading && (
+              <h2 className="text-3xl font-bold">{block.heading}</h2>
+            )}
+            {block.description && (
+              <p className="mt-3 text-lg text-primary-200">{block.description}</p>
             )}
           </div>
         )}

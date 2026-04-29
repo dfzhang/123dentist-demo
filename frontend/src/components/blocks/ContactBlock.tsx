@@ -5,14 +5,19 @@ export function ContactBlockBlock({ block }: { block: ContactBlock }) {
     <section className="bg-gray-50 py-16">
       <div className="mx-auto max-w-7xl px-4">
         {block.heading && (
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
+          <h2 className="mb-4 text-center text-3xl font-bold text-gray-900">
             {block.heading}
           </h2>
+        )}
+        {block.description && (
+          <p className="mb-12 text-center text-lg text-gray-600">
+            {block.description}
+          </p>
         )}
 
         <div className="grid gap-8 md:grid-cols-2">
           {/* Contact form */}
-          {block.showForm !== false && (
+          {block.showContactForm !== false && (
             <div className="rounded-xl bg-white p-8 shadow-sm">
               <h3 className="mb-6 text-xl font-semibold text-gray-900">
                 Send Us a Message

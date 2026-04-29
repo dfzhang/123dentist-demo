@@ -1,6 +1,7 @@
 import type { FinancingSection } from '@/sanity/types'
 import { RichText } from '../ui/PortableText'
 import { CTAButton } from '../ui/CTAButton'
+import { urlFor } from '@/sanity/image'
 
 export function FinancingSectionBlock({ block }: { block: FinancingSection }) {
   return (
@@ -12,21 +13,46 @@ export function FinancingSectionBlock({ block }: { block: FinancingSection }) {
           </h2>
         )}
 
-        {block.content && (
+        {block.description && (
           <div className="mb-8">
-            <RichText value={block.content} />
+            <RichText value={block.description} />
           </div>
         )}
 
-        {block.showInsuranceList && (
-          <div className="mb-8 rounded-xl bg-white p-8 shadow-sm">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900">
-              Accepted Insurance Providers
-            </h3>
-            <p className="text-sm text-gray-600">
-              Insurance providers are pulled from the office profile. This office
-              accepts most major dental insurance plans.
-            </p>
+        {block.financingOptions && block.financingOptions.length > 0 && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-2">
+            {block.financingOptions.map((option) => (
+              <div
+                key={option._key}
+                className="rounded-xl bg-white p-6 shadow-sm"
+              >
+                {option.logo?.image && (
+                  <img
+                    src={urlFor(option.logo.image).width(120).height(60).url()}
+                    alt={option.logo.alt || option.name}
+                    className="mb-4 h-10 object-contain"
+                  />
+                )}
+                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                  {option.name}
+                </h3>
+                {option.description && (
+                  <p className="mb-3 text-sm text-gray-600">
+                    {option.description}
+                  </p>
+                )}
+                {option.url && (
+                  <a
+                    href={option.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-primary-600 hover:text-primary-700"
+                  >
+                    Apply Now →
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
         )}
 

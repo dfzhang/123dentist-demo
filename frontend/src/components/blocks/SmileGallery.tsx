@@ -16,11 +16,13 @@ export function SmileGalleryBlock({ block }: { block: SmileGallery }) {
   return (
     <section className="py-16">
       <div className="mx-auto max-w-7xl px-4">
-        {block.heading && (
+        {(block.heading || block.description) && (
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
-            {block.subheading && (
-              <p className="mt-3 text-lg text-gray-600">{block.subheading}</p>
+            {block.heading && (
+              <h2 className="text-3xl font-bold text-gray-900">{block.heading}</h2>
+            )}
+            {block.description && (
+              <p className="mt-3 text-lg text-gray-600">{block.description}</p>
             )}
           </div>
         )}
@@ -46,7 +48,7 @@ export function SmileGalleryBlock({ block }: { block: SmileGallery }) {
                 {item.afterImage?.image && (
                   <img
                     src={urlFor(item.afterImage.image).width(96).height(64).url()}
-                    alt={item.caption || `Result ${i + 1}`}
+                    alt={item.procedure || `Result ${i + 1}`}
                     className="h-full w-full object-cover"
                   />
                 )}
@@ -92,8 +94,13 @@ function BeforeAfter({ item }: { item: GalleryItem }) {
           </div>
         </div>
       </div>
-      {item.caption && (
-        <p className="mt-4 text-center text-sm text-gray-600">{item.caption}</p>
+      {item.procedure && (
+        <p className="mt-4 text-center font-medium text-gray-900">
+          {item.procedure}
+        </p>
+      )}
+      {item.description && (
+        <p className="mt-2 text-center text-sm text-gray-600">{item.description}</p>
       )}
     </div>
   )

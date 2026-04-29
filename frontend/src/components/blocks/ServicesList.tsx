@@ -1,9 +1,8 @@
-import { stegaClean } from 'next-sanity'
 import type { ServicesList } from '@/sanity/types'
 import { urlFor } from '@/sanity/image'
 
 export function ServicesListBlock({ block }: { block: ServicesList }) {
-  const cleanLayout = stegaClean(block.layout)
+  const showDescriptions = block.showDescriptions !== false
 
   return (
     <section className="py-16">
@@ -16,7 +15,7 @@ export function ServicesListBlock({ block }: { block: ServicesList }) {
             <div
               key={service._id}
               className={`flex items-center gap-4 rounded-lg border border-gray-200 bg-white transition-colors hover:border-primary-300 ${
-                cleanLayout === 'detailed' ? 'p-6' : 'p-4'
+                showDescriptions ? 'p-6' : 'p-4'
               }`}
             >
               {service.icon?.image && (
@@ -30,7 +29,7 @@ export function ServicesListBlock({ block }: { block: ServicesList }) {
                 <h3 className="font-semibold text-gray-900">
                   {service.name}
                 </h3>
-                {cleanLayout === 'detailed' && service.shortDescription && (
+                {showDescriptions && service.shortDescription && (
                   <p className="mt-1 text-sm text-gray-600">
                     {service.shortDescription}
                   </p>
