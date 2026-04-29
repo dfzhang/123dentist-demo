@@ -3,9 +3,9 @@
  *
  * Creates a sample office (Atlantis Dental Yaletown) with:
  * - Full office profile (address, contact, hours, nav, insurance)
- * - Home page with 10 page builder blocks
- * - About page with team + value props
- * - Services page with services grid
+ * - Home page with 12 page builder blocks (all 17 block types covered across pages)
+ * - About page with team + value props + video embed
+ * - Services page with services grid + list + contact
  * - 3 services, 3 team members, 5 FAQs, 3 testimonials, 2 insurance providers
  *
  * Usage: npx tsx scripts/seed-demo.ts
@@ -128,12 +128,6 @@ const services = [
         'Every treatment plan is customized to your unique needs and goals. During your consultation, we\'ll discuss your options and create a plan that fits your lifestyle and budget.'
       ),
     ],
-    benefits: [
-      'Natural-looking results',
-      'Minimally invasive procedures',
-      'Same-day consultations available',
-      'Flexible financing options',
-    ],
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -151,12 +145,6 @@ const services = [
         'As a Diamond Invisalign Provider, Atlantis Dental has the experience and expertise to deliver exceptional results with clear aligner therapy. Our team has treated hundreds of patients with Invisalign.'
       ),
     ],
-    benefits: [
-      'Nearly invisible aligners',
-      'Removable for eating and brushing',
-      'Fewer office visits than braces',
-      'Diamond Provider expertise',
-    ],
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -173,12 +161,6 @@ const services = [
       textBlock(
         'Dental implants are the gold standard for replacing missing teeth. They provide a permanent, stable foundation for replacement teeth that look, feel, and function like your natural teeth.'
       ),
-    ],
-    benefits: [
-      'Permanent tooth replacement',
-      'Preserves jawbone health',
-      'No impact on adjacent teeth',
-      '95%+ success rate',
     ],
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
@@ -203,11 +185,9 @@ const teamMembers = [
         'He is passionate about continuing education and regularly attends advanced training courses to stay at the forefront of dental technology and techniques.'
       ),
     ],
-    education: [
+    credentials: [
       'DDS, University of British Columbia',
       'PhD Cellular Physiology, University of Western Ontario',
-    ],
-    certifications: [
       'Diamond Invisalign Provider',
       'Fellow, International Congress of Oral Implantologists',
     ],
@@ -228,8 +208,10 @@ const teamMembers = [
         'Dr. Lisa Chen joined Atlantis Dental in 2019, bringing her expertise in family and pediatric dentistry. She is known for her gentle approach and ability to make even the most anxious patients feel comfortable.'
       ),
     ],
-    education: ['DMD, University of British Columbia'],
-    certifications: ['Certified in Sedation Dentistry'],
+    credentials: [
+      'DMD, University of British Columbia',
+      'Certified in Sedation Dentistry',
+    ],
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -247,8 +229,9 @@ const teamMembers = [
         'Sarah is a Registered Dental Hygienist with over a decade of experience. She is passionate about preventive care and patient education, helping patients maintain optimal oral health between visits.'
       ),
     ],
-    education: ['Diploma in Dental Hygiene, Vancouver Community College'],
-    certifications: [],
+    credentials: [
+      'Diploma in Dental Hygiene, Vancouver Community College',
+    ],
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -410,60 +393,51 @@ const office = {
     {
       _key: 'nav1',
       _type: 'navItem',
-      label: 'Home',
-      link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown' },
+      link: { _type: 'link', label: 'Home', linkType: 'external', externalUrl: '/atlantis-yaletown' },
     },
     {
       _key: 'nav2',
       _type: 'navItem',
-      label: 'Services',
-      link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/services' },
+      link: { _type: 'link', label: 'Services', linkType: 'external', externalUrl: '/atlantis-yaletown/services' },
       children: [
         {
           _key: 'sub1',
           _type: 'navSubItem',
-          label: 'Cosmetic Dentistry',
-          link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/services/cosmetic-dentistry' },
+          link: { _type: 'link', label: 'Cosmetic Dentistry', linkType: 'external', externalUrl: '/atlantis-yaletown/services/cosmetic-dentistry' },
         },
         {
           _key: 'sub2',
           _type: 'navSubItem',
-          label: 'Invisalign',
-          link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/services/invisalign' },
+          link: { _type: 'link', label: 'Invisalign', linkType: 'external', externalUrl: '/atlantis-yaletown/services/invisalign' },
         },
         {
           _key: 'sub3',
           _type: 'navSubItem',
-          label: 'Dental Implants',
-          link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/services/dental-implants' },
+          link: { _type: 'link', label: 'Dental Implants', linkType: 'external', externalUrl: '/atlantis-yaletown/services/dental-implants' },
         },
       ],
     },
     {
       _key: 'nav3',
       _type: 'navItem',
-      label: 'About',
-      link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/about' },
+      link: { _type: 'link', label: 'About', linkType: 'external', externalUrl: '/atlantis-yaletown/about' },
     },
     {
       _key: 'nav4',
       _type: 'navItem',
-      label: 'Contact',
-      link: { _type: 'link', linkType: 'external', externalUrl: '/atlantis-yaletown/contact' },
+      link: { _type: 'link', label: 'Contact', linkType: 'external', externalUrl: '/atlantis-yaletown/contact' },
     },
   ],
   footerNavigation: [
     {
       _key: 'fnav1',
       _type: 'navItem',
-      label: 'Privacy Policy',
-      link: { _type: 'link', linkType: 'external', externalUrl: '#' },
+      link: { _type: 'link', label: 'Privacy Policy', linkType: 'external', externalUrl: '#' },
     },
     {
       _key: 'fnav2',
       _type: 'navItem',
-      label: 'Terms of Service',
-      link: { _type: 'link', linkType: 'external', externalUrl: '#' },
+      link: { _type: 'link', label: 'Terms of Service', linkType: 'external', externalUrl: '#' },
     },
   ],
   newPatientInfo: [
@@ -515,10 +489,10 @@ const homePage = {
         {
           _key: 'cta1',
           _type: 'cta',
-          label: 'Book an Appointment',
           variant: 'primary',
           link: {
             _type: 'link',
+            label: 'Book an Appointment',
             linkType: 'external',
             externalUrl: 'https://atlantisdental.ca/book',
           },
@@ -526,10 +500,10 @@ const homePage = {
         {
           _key: 'cta2',
           _type: 'cta',
-          label: 'Our Services',
           variant: 'outline',
           link: {
             _type: 'link',
+            label: 'Our Services',
             linkType: 'external',
             externalUrl: '/atlantis-yaletown/services',
           },
@@ -541,27 +515,26 @@ const homePage = {
       _key: 'values1',
       _type: 'valueProps',
       heading: 'Why Choose Atlantis Dental?',
-      subheading: 'We combine cutting-edge technology with compassionate care',
-      layout: 'centered',
+      layout: 'grid',
       items: [
         {
           _key: 'vp1',
           _type: 'valuePropItem',
-          title: 'Modern Technology',
+          heading: 'Modern Technology',
           description:
             'State-of-the-art equipment including digital X-rays, 3D scanning, and laser dentistry for precise, comfortable treatments.',
         },
         {
           _key: 'vp2',
           _type: 'valuePropItem',
-          title: 'Experienced Team',
+          heading: 'Experienced Team',
           description:
             'Our dentists bring over 40 years of combined experience, with advanced training in cosmetic, restorative, and implant dentistry.',
         },
         {
           _key: 'vp3',
           _type: 'valuePropItem',
-          title: 'Patient Comfort',
+          heading: 'Patient Comfort',
           description:
             'From sedation options to a warm, welcoming environment, we make every visit as comfortable as possible.',
         },
@@ -572,7 +545,7 @@ const homePage = {
       _key: 'svcgrid1',
       _type: 'servicesGrid',
       heading: 'Our Services',
-      subheading: 'Comprehensive dental care for the whole family',
+      description: 'Comprehensive dental care for the whole family',
       columns: 3,
       services: [
         { _key: 'sg1', _type: 'reference', _ref: SERVICE_IDS.cosmetic },
@@ -586,22 +559,69 @@ const homePage = {
       _type: 'teamFeatured',
       heading: 'Meet Dr. Tom Karkanis',
       member: { _type: 'reference', _ref: TEAM_IDS.drKarkanis },
-      layout: 'imageLeft',
+      layout: 'photo-left',
+      showFullBio: false,
     },
     // 5. Testimonials
     {
       _key: 'test1',
       _type: 'testimonialsSection',
       heading: 'What Our Patients Say',
-      subheading: 'Real reviews from real patients',
       layout: 'grid',
+      showRatings: true,
       testimonials: [
         { _key: 'ts1', _type: 'reference', _ref: TESTIMONIAL_IDS[0] },
         { _key: 'ts2', _type: 'reference', _ref: TESTIMONIAL_IDS[1] },
         { _key: 'ts3', _type: 'reference', _ref: TESTIMONIAL_IDS[2] },
       ],
     },
-    // 6. Image with Text
+    // 6. Smile Gallery
+    {
+      _key: 'gallery1',
+      _type: 'smileGallery',
+      heading: 'Smile Transformations',
+      description: 'Real results from real patients',
+      items: [
+        {
+          _key: 'gi1',
+          _type: 'galleryItem',
+          procedure: 'Porcelain Veneers',
+          description: 'Complete smile makeover with porcelain veneers',
+          consentObtained: true,
+          beforeImage: { _type: 'imageWithAlt', alt: 'Before veneers treatment' },
+          afterImage: { _type: 'imageWithAlt', alt: 'After veneers treatment' },
+        },
+        {
+          _key: 'gi2',
+          _type: 'galleryItem',
+          procedure: 'Invisalign',
+          description: '12 month clear aligner treatment',
+          consentObtained: true,
+          beforeImage: { _type: 'imageWithAlt', alt: 'Before Invisalign' },
+          afterImage: { _type: 'imageWithAlt', alt: 'After Invisalign' },
+        },
+        {
+          _key: 'gi3',
+          _type: 'galleryItem',
+          procedure: 'Dental Implant',
+          description: 'Single tooth replacement with implant',
+          consentObtained: true,
+          beforeImage: { _type: 'imageWithAlt', alt: 'Before implant' },
+          afterImage: { _type: 'imageWithAlt', alt: 'After implant' },
+        },
+        {
+          // consentObtained: false — frontend HIPAA filter excludes this item
+          _key: 'gi4',
+          _type: 'galleryItem',
+          procedure: 'Teeth Whitening',
+          description: 'Professional whitening — consent pending',
+          consentObtained: false,
+          beforeImage: { _type: 'imageWithAlt', alt: 'Before whitening' },
+          afterImage: { _type: 'imageWithAlt', alt: 'After whitening' },
+        },
+      ],
+    },
+    // 7. Image with Text
     {
       _key: 'iwt1',
       _type: 'imageWithTextSection',
@@ -614,26 +634,41 @@ const homePage = {
           'Our team takes the time to listen to your concerns, explain your treatment options, and ensure you feel confident in your care plan.'
         ),
       ],
-      layout: 'imageRight',
-      backgroundColor: 'gray',
+      imagePosition: 'right',
+      ctas: [
+        {
+          _key: 'iwtcta1',
+          _type: 'cta',
+          variant: 'outline',
+          link: {
+            _type: 'link',
+            label: 'Meet Our Team',
+            linkType: 'external',
+            externalUrl: '/atlantis-yaletown/about',
+          },
+        },
+      ],
     },
-    // 7. FAQ
+    // 8. FAQ
     {
       _key: 'faq1',
       _type: 'faqSection',
       heading: 'Frequently Asked Questions',
+      layout: 'accordion',
       faqs: FAQ_IDS.map((id, i) => ({
         _key: `fq${i}`,
         _type: 'reference',
         _ref: id,
       })),
     },
-    // 8. New Patient
+    // 9. New Patient
     {
       _key: 'np1',
       _type: 'newPatientSection',
       heading: 'New Patients Welcome',
-      subheading: 'Getting started is easy — just three simple steps',
+      description: [
+        textBlock('Getting started is easy — just three simple steps'),
+      ],
       steps: [
         {
           _key: 'step1',
@@ -660,31 +695,31 @@ const homePage = {
       showInsurance: true,
       cta: {
         _type: 'cta',
-        label: 'Book Your First Visit',
         variant: 'primary',
         link: {
           _type: 'link',
+          label: 'Book Your First Visit',
           linkType: 'external',
           externalUrl: 'https://atlantisdental.ca/book',
         },
       },
     },
-    // 9. CTA Block
+    // 10. CTA Block
     {
       _key: 'cta1',
       _type: 'ctaBlock',
       heading: 'Ready to Transform Your Smile?',
-      subheading:
+      description:
         'Book a consultation today and take the first step toward the smile you deserve.',
-      backgroundColor: 'gradient',
+      layout: 'banner',
       ctas: [
         {
           _key: 'ctab1',
           _type: 'cta',
-          label: 'Book Now',
           variant: 'primary',
           link: {
             _type: 'link',
+            label: 'Book Now',
             linkType: 'external',
             externalUrl: 'https://atlantisdental.ca/book',
           },
@@ -692,22 +727,22 @@ const homePage = {
         {
           _key: 'ctab2',
           _type: 'cta',
-          label: 'Call (604) 899-0775',
           variant: 'outline',
           link: {
             _type: 'link',
+            label: 'Call (604) 899-0775',
             linkType: 'external',
             externalUrl: 'tel:6048990775',
           },
         },
       ],
     },
-    // 10. Financing
+    // 11. Financing
     {
       _key: 'fin1',
       _type: 'financingSection',
       heading: 'Flexible Payment Options',
-      content: [
+      description: [
         textBlock(
           'We believe everyone deserves a healthy, beautiful smile. That\'s why we offer flexible financing options to make dental care accessible.'
         ),
@@ -715,17 +750,42 @@ const homePage = {
           'We accept most major insurance plans and offer interest-free payment plans through Fairstone Financial for treatments over $500.'
         ),
       ],
-      showInsuranceList: true,
+      financingOptions: [
+        {
+          _key: 'fo1',
+          _type: 'object',
+          name: 'Fairstone Financial',
+          description: 'Interest-free payment plans for treatments over $500. Apply in-office.',
+          url: 'https://www.fairstone.ca',
+        },
+        {
+          _key: 'fo2',
+          _type: 'object',
+          name: 'Direct Insurance Billing',
+          description: 'We bill your insurance directly so you only pay the difference.',
+        },
+      ],
       cta: {
         _type: 'cta',
-        label: 'Learn About Financing',
         variant: 'secondary',
         link: {
           _type: 'link',
+          label: 'Learn About Financing',
           linkType: 'external',
           externalUrl: '#',
         },
       },
+    },
+    // 12. Contact Block
+    {
+      _key: 'contact1',
+      _type: 'contactBlock',
+      heading: 'Get in Touch',
+      description: 'We\'d love to hear from you. Reach out to book an appointment or ask a question.',
+      showContactForm: true,
+      showMap: true,
+      showHours: true,
+      layout: 'side-by-side',
     },
   ],
 }
@@ -758,13 +818,21 @@ const aboutPage = {
           'Today, our team of experienced dentists and hygienists serves thousands of patients across Vancouver, offering everything from routine cleanings to complex cosmetic and restorative procedures.'
         ),
       ],
-      backgroundColor: 'white',
+      layout: 'full',
+    },
+    // Video Embed
+    {
+      _key: 'video1',
+      _type: 'videoEmbed',
+      heading: 'Take a Tour of Our Office',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder — replace with real office tour
+      caption: 'Step inside Atlantis Dental Yaletown and see our modern facilities.',
     },
     {
       _key: 'team1',
       _type: 'teamGrid',
       heading: 'Meet Our Team',
-      subheading: 'Dedicated professionals committed to your dental health',
+      description: 'Dedicated professionals committed to your dental health',
       columns: 3,
       members: [
         { _key: 'tm1', _type: 'reference', _ref: TEAM_IDS.drKarkanis },
@@ -776,7 +844,7 @@ const aboutPage = {
       _key: 'tech1',
       _type: 'technologyShowcase',
       heading: 'Our Technology',
-      subheading: 'Investing in the latest dental technology for better outcomes',
+      description: 'Investing in the latest dental technology for better outcomes',
       technologies: [
         {
           _key: 't1',
@@ -802,24 +870,24 @@ const aboutPage = {
       _key: 'vp1',
       _type: 'valueProps',
       heading: 'What Makes Us Different',
-      layout: 'alternating',
+      layout: 'vertical',
       items: [
         {
           _key: 'v1',
           _type: 'valuePropItem',
-          title: 'Personalized Care',
+          heading: 'Personalized Care',
           description: 'Every treatment plan is customized to your unique needs, goals, and budget.',
         },
         {
           _key: 'v2',
           _type: 'valuePropItem',
-          title: 'Continuing Education',
+          heading: 'Continuing Education',
           description: 'Our team regularly attends advanced training to stay at the forefront of dentistry.',
         },
         {
           _key: 'v3',
           _type: 'valuePropItem',
-          title: 'Community Focus',
+          heading: 'Community Focus',
           description: 'We\'re proud to be part of the Yaletown community and give back through local initiatives.',
         },
       ],
@@ -858,7 +926,7 @@ const servicesPage = {
       _key: 'svclist1',
       _type: 'servicesList',
       heading: 'All Services',
-      layout: 'detailed',
+      showDescriptions: true,
       services: [
         { _key: 'sl1', _type: 'reference', _ref: SERVICE_IDS.cosmetic },
         { _key: 'sl2', _type: 'reference', _ref: SERVICE_IDS.invisalign },
@@ -869,7 +937,7 @@ const servicesPage = {
       _key: 'contact1',
       _type: 'contactBlock',
       heading: 'Ready to Get Started?',
-      showForm: true,
+      showContactForm: true,
       showMap: true,
       showHours: true,
     },
@@ -914,12 +982,14 @@ async function seed() {
   console.log(`  - 3 testimonials`)
   console.log(`  - 2 insurance providers`)
   console.log('')
-  console.log('Page builder blocks used:')
-  console.log('  Home: hero, valueProps, servicesGrid, teamFeatured,')
-  console.log('         testimonialsSection, imageWithText, faqSection,')
-  console.log('         newPatientSection, ctaBlock, financingSection (10)')
-  console.log('  About: hero, richText, teamGrid, technologyShowcase, valueProps (5)')
-  console.log('  Services: hero, servicesGrid, servicesList, contactBlock (4)')
+  console.log('Page builder blocks used (17/17 block types):')
+  console.log('  Home: heroSection, valueProps, servicesGrid, teamFeatured,')
+  console.log('         testimonialsSection, smileGallery, imageWithTextSection,')
+  console.log('         faqSection, newPatientSection, ctaBlock,')
+  console.log('         financingSection, contactBlock (12)')
+  console.log('  About: heroSection, richTextSection, videoEmbed,')
+  console.log('         teamGrid, technologyShowcase, valueProps (6)')
+  console.log('  Services: heroSection, servicesGrid, servicesList, contactBlock (4)')
   console.log('')
   console.log(`🌐 View at: /atlantis-yaletown`)
 }

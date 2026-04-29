@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@sanity/client':
+        specifier: ^7.22.0
+        version: 7.22.0
       '@sanity/document-internationalization':
         specifier: ^3.0.0
         version: 3.3.3(@emotion/is-prop-valid@1.4.0)(@types/react@19.2.14)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(rxjs@7.8.2)(sanity@3.99.0(@emotion/is-prop-valid@1.4.0)(@types/node@25.6.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(immer@10.2.0)(jiti@2.6.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.3))(styled-components@6.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))

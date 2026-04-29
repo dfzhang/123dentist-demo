@@ -85,7 +85,7 @@ export function Footer({ office, officeSlug }: FooterProps) {
                     href={`/${officeSlug}`}
                     className="hover:text-white"
                   >
-                    {item.label}
+                    {item.link?.label}
                   </Link>
                 </p>
               ))}

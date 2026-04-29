@@ -16,17 +16,17 @@ const sectionsProjection = groq`
     // --- Blocks with service references (flat reference arrays) ---
     _type == "servicesGrid" => {
       ...,
-      "services": services[]-> { _id, name, shortDescription, slug, icon, category }
+      "services": services[]-> { _id, name, shortDescription, slug, image, category }
     },
     _type == "servicesList" => {
       ...,
-      "services": services[]-> { _id, name, shortDescription, slug, icon, category }
+      "services": services[]-> { _id, name, shortDescription, slug, image, category }
     },
 
     // --- Blocks with team member references ---
     _type == "teamFeatured" => {
       ...,
-      "member": member-> { _id, name, role, shortBio, bio, photo, slug, education, certifications }
+      "member": member-> { _id, name, role, shortBio, bio, photo, slug, credentials }
     },
     _type == "teamGrid" => {
       ...,
@@ -170,7 +170,7 @@ export const allServicesQuery = groq`
     slug,
     category,
     shortDescription,
-    icon
+    image
   }
 `
 
@@ -187,9 +187,7 @@ export const serviceBySlugQuery = groq`
     category,
     shortDescription,
     description,
-    icon,
-    heroImage,
-    benefits,
+    image,
     seo
   }
 `
@@ -224,8 +222,7 @@ export const teamMemberBySlugQuery = groq`
     shortBio,
     bio,
     photo,
-    education,
-    certifications,
+    credentials,
     seo
   }
 `

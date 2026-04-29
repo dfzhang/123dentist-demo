@@ -100,7 +100,7 @@ function NavItemComponent({
           href={href}
           className="text-sm font-medium text-gray-700 transition-colors hover:text-primary-600"
         >
-          {item.label}
+          {item.link?.label}
         </a>
         <div className="invisible absolute left-0 top-full z-50 min-w-48 rounded-lg border border-gray-100 bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
           {item.children.map((child) => (
@@ -109,7 +109,7 @@ function NavItemComponent({
               href={resolveLink(child.link, officeSlug)}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600"
             >
-              {child.label}
+              {child.link?.label}
             </a>
           ))}
         </div>
@@ -122,7 +122,7 @@ function NavItemComponent({
       href={href}
       className="text-sm font-medium text-gray-700 transition-colors hover:text-primary-600"
     >
-      {item.label}
+      {item.link?.label}
     </a>
   )
 }

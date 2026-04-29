@@ -85,13 +85,13 @@ export function TeamFeaturedBlock({ block }: { block: TeamFeatured }) {
               ) : block.member?.shortBio ? (
                 <p className="text-gray-600">{block.member.shortBio}</p>
               ) : null}
-              {block.member?.education && block.member.education.length > 0 && (
+              {block.member?.credentials && block.member.credentials.length > 0 && (
                 <div className="mt-6">
                   <h4 className="mb-2 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                    Education
+                    Credentials
                   </h4>
                   <ul className="space-y-1 text-sm text-gray-700">
-                    {block.member.education.map((item, i) => (
+                    {block.member.credentials.map((item, i) => (
                       <li key={i}>• {item}</li>
                     ))}
                   </ul>

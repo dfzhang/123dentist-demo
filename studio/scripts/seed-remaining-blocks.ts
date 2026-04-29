@@ -38,12 +38,12 @@ async function patchPages() {
     _key: 'gallery1',
     _type: 'smileGallery',
     heading: 'Smile Transformations',
-    subheading: 'Real results from real patients',
+    description: 'Real results from real patients',
     items: [
       {
         _key: 'gi1',
         _type: 'galleryItem',
-        caption: 'Porcelain veneers — complete smile makeover',
+        description: 'Porcelain veneers — complete smile makeover',
         procedure: 'Porcelain Veneers',
         consentObtained: true,
         // No actual image assets — component handles missing images gracefully
@@ -54,7 +54,7 @@ async function patchPages() {
       {
         _key: 'gi2',
         _type: 'galleryItem',
-        caption: 'Invisalign — 12 month treatment',
+        description: 'Invisalign — 12 month treatment',
         procedure: 'Invisalign',
         consentObtained: true,
         beforeImage: { _type: 'imageWithAlt', alt: 'Before Invisalign' },
@@ -63,7 +63,7 @@ async function patchPages() {
       {
         _key: 'gi3',
         _type: 'galleryItem',
-        caption: 'Dental implant — single tooth replacement',
+        description: 'Dental implant — single tooth replacement',
         procedure: 'Dental Implant',
         consentObtained: true,
         beforeImage: { _type: 'imageWithAlt', alt: 'Before implant' },
@@ -74,7 +74,7 @@ async function patchPages() {
         // will exclude it, demonstrating the compliance pipeline
         _key: 'gi4',
         _type: 'galleryItem',
-        caption: 'Teeth whitening — consent pending',
+        description: 'Teeth whitening — consent pending',
         procedure: 'Teeth Whitening',
         consentObtained: false,
         beforeImage: { _type: 'imageWithAlt', alt: 'Before whitening' },
@@ -89,7 +89,6 @@ async function patchPages() {
     _type: 'videoEmbed',
     heading: 'Take a Tour of Our Office',
     url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder — replace with real office tour
-    aspectRatio: '16:9',
     caption: 'Step inside Atlantis Dental Yaletown and see our modern facilities.',
   }
 

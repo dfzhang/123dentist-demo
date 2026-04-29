@@ -70,6 +70,7 @@ export interface BusinessHours {
 }
 
 export interface Link {
+  label: string
   linkType: 'internal' | 'external'
   internalRef?: { _ref: string; _type: string }
   externalUrl?: string
@@ -77,9 +78,8 @@ export interface Link {
 }
 
 export interface CTA {
-  label: string
   link: Link
-  variant: 'primary' | 'secondary' | 'outline' | 'ghost'
+  variant: 'primary' | 'secondary' | 'outline' | 'text'
 }
 
 export interface SEO {
@@ -91,13 +91,11 @@ export interface SEO {
 
 export interface NavSubItem {
   _key: string
-  label: string
   link: Link
 }
 
 export interface NavItem {
   _key: string
-  label: string
   link: Link
   children?: NavSubItem[]
 }
@@ -172,9 +170,7 @@ export interface Service {
   category: string
   shortDescription?: string
   description?: PortableTextBlock[]
-  icon?: ImageWithAlt
-  heroImage?: ImageWithAlt
-  benefits?: string[]
+  image?: ImageWithAlt
   seo?: SEO
 }
 
@@ -188,8 +184,7 @@ export interface TeamMember {
   shortBio?: string
   bio?: PortableTextBlock[]
   photo?: ImageWithAlt
-  education?: string[]
-  certifications?: string[]
+  credentials?: string[]
   seo?: SEO
 }
 

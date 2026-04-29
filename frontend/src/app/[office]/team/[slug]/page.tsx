@@ -81,36 +81,18 @@ export default async function TeamMemberPage({ params }: Props) {
 
             {member.bio && <RichText value={member.bio} />}
 
-            {member.education && member.education.length > 0 && (
+            {member.credentials && member.credentials.length > 0 && (
               <div className="mt-8">
                 <h2 className="mb-3 text-lg font-semibold text-gray-900">
-                  Education
+                  Credentials
                 </h2>
                 <ul className="space-y-1">
-                  {member.education.map((item, i) => (
+                  {member.credentials.map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
                       <span className="text-primary-500">🎓</span> {item}
                     </li>
                   ))}
                 </ul>
-              </div>
-            )}
-
-            {member.certifications && member.certifications.length > 0 && (
-              <div className="mt-6">
-                <h2 className="mb-3 text-lg font-semibold text-gray-900">
-                  Certifications
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {member.certifications.map((cert, i) => (
-                    <span
-                      key={i}
-                      className="rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700"
-                    >
-                      {cert}
-                    </span>
-                  ))}
-                </div>
               </div>
             )}
           </div>

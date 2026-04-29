@@ -18,10 +18,10 @@ export function ServicesListBlock({ block }: { block: ServicesList }) {
                 showDescriptions ? 'p-6' : 'p-4'
               }`}
             >
-              {service.icon?.image && (
+              {service.image?.image && (
                 <img
-                  src={urlFor(service.icon.image).width(48).height(48).url()}
-                  alt={service.icon.alt || ''}
+                  src={urlFor(service.image.image).width(48).height(48).url()}
+                  alt={service.image.alt || ''}
                   className="h-10 w-10 shrink-0"
                 />
               )}

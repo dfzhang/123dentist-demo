@@ -28,10 +28,10 @@ export function ServicesGridBlock({ block }: { block: ServicesGrid }) {
               key={service._id}
               className="group rounded-xl bg-white p-6 shadow-sm transition-all hover:shadow-lg"
             >
-              {service.icon?.image && (
+              {service.image?.image && (
                 <img
-                  src={urlFor(service.icon.image).width(80).height(80).url()}
-                  alt={service.icon.alt || ''}
+                  src={urlFor(service.image.image).width(80).height(80).url()}
+                  alt={service.image.alt || ''}
                   className="mb-4 h-16 w-16"
                 />
               )}

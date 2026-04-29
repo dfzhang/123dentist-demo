@@ -8,8 +8,8 @@ const variantStyles: Record<CTA['variant'], string> = {
     'bg-accent-500 text-white hover:bg-accent-600 shadow-lg hover:shadow-xl',
   outline:
     'border-2 border-white text-white hover:bg-white hover:text-primary-800',
-  ghost:
-    'text-white hover:bg-white/10',
+  text:
+    'text-primary-600 hover:text-primary-800 underline underline-offset-2',
 }
 
 export function CTAButton({ cta, className }: { cta: CTA; className?: string }) {
@@ -29,7 +29,7 @@ export function CTAButton({ cta, className }: { cta: CTA; className?: string }) 
         className
       )}
     >
-      {cta.label}
+      {cta.link?.label}
     </a>
   )
 }
