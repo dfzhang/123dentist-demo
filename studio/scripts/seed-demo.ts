@@ -100,12 +100,14 @@ const insuranceProviders = [
     _id: INSURANCE_IDS.sunlife,
     _type: 'insuranceProvider',
     name: 'Sun Life Financial',
+    slug: { _type: 'slug', current: 'sun-life-financial' },
     website: 'https://www.sunlife.ca',
   },
   {
     _id: INSURANCE_IDS.manulife,
     _type: 'insuranceProvider',
     name: 'Manulife',
+    slug: { _type: 'slug', current: 'manulife' },
     website: 'https://www.manulife.ca',
   },
 ]
@@ -153,7 +155,7 @@ const services = [
     _type: 'service',
     name: 'Dental Implants',
     slug: { _type: 'slug', current: 'dental-implants' },
-    category: 'restorative',
+    category: 'prosthodontics',
     shortDescription:
       'Replace missing teeth with permanent dental implants that look, feel, and function like natural teeth.',
     description: [
@@ -286,7 +288,7 @@ const faqs = [
         'Yes, we offer several sedation options for patients who experience dental anxiety. From nitrous oxide (laughing gas) to oral sedation, we\'ll find the right option to keep you comfortable during your treatment.'
       ),
     ],
-    category: 'services',
+    category: 'procedures',
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -348,9 +350,14 @@ const office = {
   _type: 'office',
   name: 'Atlantis Dental Yaletown',
   slug: { _type: 'slug', current: 'atlantis-yaletown' },
-  tagline: [{ _key: 'en', value: "Tomorrow's Dentistry — Today!" }],
-  shortDescription:
-    'Your trusted dental care provider in the heart of Yaletown, Vancouver. Offering comprehensive dental services in a modern, comfortable environment.',
+  tagline: [{ _key: 'en', _type: 'internationalizedArrayStringValue', value: "Tomorrow's Dentistry — Today!" }],
+  description: [
+    {
+      _key: 'en',
+      _type: 'internationalizedArrayTextValue',
+      value: 'Your trusted dental care provider in the heart of Yaletown, Vancouver. Offering comprehensive dental services in a modern, comfortable environment.',
+    },
+  ],
   address: {
     _type: 'address',
     street: '1290 Homer Street',
@@ -358,13 +365,11 @@ const office = {
     city: 'Vancouver',
     province: 'BC',
     postalCode: 'V6B 2Y5',
-    country: 'Canada',
   },
   contactInfo: {
     _type: 'contactInfo',
     phone: '6048990775',
     email: 'yaletown@atlantisdental.ca',
-    bookingUrl: 'https://atlantisdental.ca/book',
   },
   socialLinks: {
     _type: 'socialLinks',
@@ -373,16 +378,15 @@ const office = {
   },
   businessHours: {
     _type: 'businessHours',
-    schedule: [
-      { _key: 'mon', day: 'monday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
-      { _key: 'tue', day: 'tuesday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
-      { _key: 'wed', day: 'wednesday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
-      { _key: 'thu', day: 'thursday', isClosed: false, openTime: '08:00', closeTime: '19:00' },
-      { _key: 'fri', day: 'friday', isClosed: false, openTime: '08:00', closeTime: '16:00' },
-      { _key: 'sat', day: 'saturday', isClosed: false, openTime: '09:00', closeTime: '14:00' },
-      { _key: 'sun', day: 'sunday', isClosed: true },
+    hours: [
+      { _key: 'mon', _type: 'dayHours', day: 'monday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
+      { _key: 'tue', _type: 'dayHours', day: 'tuesday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
+      { _key: 'wed', _type: 'dayHours', day: 'wednesday', isClosed: false, openTime: '08:00', closeTime: '17:00' },
+      { _key: 'thu', _type: 'dayHours', day: 'thursday', isClosed: false, openTime: '08:00', closeTime: '19:00' },
+      { _key: 'fri', _type: 'dayHours', day: 'friday', isClosed: false, openTime: '08:00', closeTime: '16:00' },
+      { _key: 'sat', _type: 'dayHours', day: 'saturday', isClosed: false, openTime: '09:00', closeTime: '14:00' },
+      { _key: 'sun', _type: 'dayHours', day: 'sunday', isClosed: true },
     ],
-    timezone: 'America/Vancouver',
     holidayNote: 'Closed on statutory holidays',
   },
   insuranceProviders: [
@@ -393,51 +397,51 @@ const office = {
     {
       _key: 'nav1',
       _type: 'navItem',
-      link: { _type: 'link', label: 'Home', linkType: 'external', externalUrl: '/atlantis-yaletown' },
+      link: { _type: 'link', label: 'Home', linkType: 'internal', internalRef: { _type: 'reference', _ref: HOME_PAGE_ID } },
     },
     {
       _key: 'nav2',
       _type: 'navItem',
-      link: { _type: 'link', label: 'Services', linkType: 'external', externalUrl: '/atlantis-yaletown/services' },
+      link: { _type: 'link', label: 'Services', linkType: 'internal', internalRef: { _type: 'reference', _ref: SERVICES_PAGE_ID } },
       children: [
         {
           _key: 'sub1',
           _type: 'navSubItem',
-          link: { _type: 'link', label: 'Cosmetic Dentistry', linkType: 'external', externalUrl: '/atlantis-yaletown/services/cosmetic-dentistry' },
+          link: { _type: 'link', label: 'Cosmetic Dentistry', linkType: 'internal', internalRef: { _type: 'reference', _ref: SERVICE_IDS.cosmetic } },
         },
         {
           _key: 'sub2',
           _type: 'navSubItem',
-          link: { _type: 'link', label: 'Invisalign', linkType: 'external', externalUrl: '/atlantis-yaletown/services/invisalign' },
+          link: { _type: 'link', label: 'Invisalign', linkType: 'internal', internalRef: { _type: 'reference', _ref: SERVICE_IDS.invisalign } },
         },
         {
           _key: 'sub3',
           _type: 'navSubItem',
-          link: { _type: 'link', label: 'Dental Implants', linkType: 'external', externalUrl: '/atlantis-yaletown/services/dental-implants' },
+          link: { _type: 'link', label: 'Dental Implants', linkType: 'internal', internalRef: { _type: 'reference', _ref: SERVICE_IDS.implants } },
         },
       ],
     },
     {
       _key: 'nav3',
       _type: 'navItem',
-      link: { _type: 'link', label: 'About', linkType: 'external', externalUrl: '/atlantis-yaletown/about' },
+      link: { _type: 'link', label: 'About', linkType: 'internal', internalRef: { _type: 'reference', _ref: ABOUT_PAGE_ID } },
     },
     {
       _key: 'nav4',
       _type: 'navItem',
-      link: { _type: 'link', label: 'Contact', linkType: 'external', externalUrl: '/atlantis-yaletown/contact' },
+      link: { _type: 'link', label: 'Contact', linkType: 'external', externalUrl: 'https://atlantisdental.ca/contact' },
     },
   ],
   footerNavigation: [
     {
       _key: 'fnav1',
       _type: 'navItem',
-      link: { _type: 'link', label: 'Privacy Policy', linkType: 'external', externalUrl: '#' },
+      link: { _type: 'link', label: 'Privacy Policy', linkType: 'external', externalUrl: 'https://atlantisdental.ca/privacy' },
     },
     {
       _key: 'fnav2',
       _type: 'navItem',
-      link: { _type: 'link', label: 'Terms of Service', linkType: 'external', externalUrl: '#' },
+      link: { _type: 'link', label: 'Terms of Service', linkType: 'external', externalUrl: 'https://atlantisdental.ca/terms' },
     },
   ],
   newPatientInfo: [
@@ -504,8 +508,8 @@ const homePage = {
           link: {
             _type: 'link',
             label: 'Our Services',
-            linkType: 'external',
-            externalUrl: '/atlantis-yaletown/services',
+            linkType: 'internal',
+            internalRef: { _type: 'reference', _ref: SERVICES_PAGE_ID },
           },
         },
       ],
@@ -643,8 +647,8 @@ const homePage = {
           link: {
             _type: 'link',
             label: 'Meet Our Team',
-            linkType: 'external',
-            externalUrl: '/atlantis-yaletown/about',
+            linkType: 'internal',
+            internalRef: { _type: 'reference', _ref: ABOUT_PAGE_ID },
           },
         },
       ],
@@ -732,7 +736,7 @@ const homePage = {
             _type: 'link',
             label: 'Call (604) 899-0775',
             linkType: 'external',
-            externalUrl: 'tel:6048990775',
+            externalUrl: 'https://atlantisdental.ca/contact',
           },
         },
       ],
@@ -772,7 +776,7 @@ const homePage = {
           _type: 'link',
           label: 'Learn About Financing',
           linkType: 'external',
-          externalUrl: '#',
+          externalUrl: 'https://www.fairstone.ca',
         },
       },
     },
