@@ -18,6 +18,7 @@ import { structureTool } from 'sanity/structure'
 import { presentationTool } from 'sanity/presentation'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { internationalizedArray } from 'sanity-plugin-internationalized-array'
+import { assist } from '@sanity/assist'
 import { schemaTypes } from './schemas'
 import { offices, type OfficeEntry } from './lib/office-registry'
 import {
@@ -329,6 +330,18 @@ function i18nPlugins() {
         // The plugin creates internationalizedArrayPortableTextSimple from this name
         'portableTextSimple',
       ],
+    }),
+    // AI Assist: adds ✨ sparkle icon for AI-powered actions including
+    // one-click document translation (English → French)
+    assist({
+      translate: {
+        document: {
+          // Matches the hidden `language` field on all i18n document types
+          languageField: 'language',
+          // Only enable for document-level i18n types
+          documentTypes: [...I18N_DOCUMENT_TYPES],
+        },
+      },
     }),
   ]
 }
