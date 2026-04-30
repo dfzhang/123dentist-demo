@@ -4,6 +4,10 @@ export const service = defineType({
   name: 'service',
   title: 'Service',
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'office',
@@ -12,6 +16,7 @@ export const service = defineType({
       to: [{ type: 'office' }],
       readOnly: true,
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'language',
@@ -25,6 +30,7 @@ export const service = defineType({
       title: 'Service Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -32,6 +38,7 @@ export const service = defineType({
       type: 'slug',
       options: { source: 'name' },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'category',
@@ -52,6 +59,7 @@ export const service = defineType({
         ],
       },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'shortDescription',
@@ -60,21 +68,25 @@ export const service = defineType({
       rows: 3,
       description: 'For cards and listings (max 200 chars)',
       validation: (Rule) => Rule.required().max(200),
+      group: 'content',
     }),
     defineField({
       name: 'description',
       title: 'Full Description',
       type: 'portableText',
+      group: 'content',
     }),
     defineField({
       name: 'image',
       title: 'Service Image',
       type: 'imageWithAlt',
+      group: 'content',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

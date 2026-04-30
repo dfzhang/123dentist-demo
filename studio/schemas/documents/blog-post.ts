@@ -5,6 +5,10 @@ export const blogPost = defineType({
   name: 'blogPost',
   title: 'Blog Post',
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'office',
@@ -13,12 +17,14 @@ export const blogPost = defineType({
       to: [{ type: 'office' }],
       readOnly: true,
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -26,6 +32,7 @@ export const blogPost = defineType({
       type: 'slug',
       options: { source: 'title' },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'excerpt',
@@ -34,11 +41,13 @@ export const blogPost = defineType({
       rows: 3,
       description: 'For cards and listings (max 300 chars)',
       validation: (Rule) => Rule.max(300),
+      group: 'content',
     }),
     defineField({
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'imageWithAlt',
+      group: 'content',
     }),
     defineField({
       name: 'author',
@@ -46,21 +55,25 @@ export const blogPost = defineType({
       type: 'reference',
       to: [{ type: 'teamMember' }],
       options: officeScopedRefOptions('teamMember'),
+      group: 'content',
     }),
     defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
+      group: 'content',
     }),
     defineField({
       name: 'body',
       title: 'Body',
       type: 'portableText',
+      group: 'content',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

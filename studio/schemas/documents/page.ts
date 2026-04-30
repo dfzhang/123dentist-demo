@@ -4,6 +4,10 @@ export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'office',
@@ -12,6 +16,7 @@ export const page = defineType({
       to: [{ type: 'office' }],
       readOnly: true,
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'language',
@@ -25,6 +30,7 @@ export const page = defineType({
       title: 'Page Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -32,6 +38,7 @@ export const page = defineType({
       type: 'slug',
       options: { source: 'title' },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'pageType',
@@ -54,11 +61,13 @@ export const page = defineType({
         ],
       },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'sections',
       title: 'Page Sections',
       type: 'array',
+      group: 'content',
       of: [
         defineArrayMember({ type: 'heroSection' }),
         defineArrayMember({ type: 'richTextSection' }),
@@ -83,6 +92,7 @@ export const page = defineType({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

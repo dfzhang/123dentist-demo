@@ -4,6 +4,10 @@ export const teamMember = defineType({
   name: 'teamMember',
   title: 'Team Member',
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'office',
@@ -12,6 +16,7 @@ export const teamMember = defineType({
       to: [{ type: 'office' }],
       readOnly: true,
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'language',
@@ -25,6 +30,7 @@ export const teamMember = defineType({
       title: 'Full Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -32,12 +38,14 @@ export const teamMember = defineType({
       type: 'slug',
       options: { source: 'name' },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'role',
       title: 'Role / Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'roleCategory',
@@ -55,6 +63,7 @@ export const teamMember = defineType({
         ],
       },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'shortBio',
@@ -63,16 +72,19 @@ export const teamMember = defineType({
       rows: 3,
       description: 'For cards and listings (max 200 chars)',
       validation: (Rule) => Rule.max(200),
+      group: 'content',
     }),
     defineField({
       name: 'bio',
       title: 'Full Bio',
       type: 'portableText',
+      group: 'content',
     }),
     defineField({
       name: 'photo',
       title: 'Photo',
       type: 'imageWithAlt',
+      group: 'content',
     }),
     defineField({
       name: 'credentials',
@@ -80,11 +92,13 @@ export const teamMember = defineType({
       type: 'array',
       of: [{ type: 'string' }],
       description: 'e.g., "DDS", "University of British Columbia"',
+      group: 'content',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
