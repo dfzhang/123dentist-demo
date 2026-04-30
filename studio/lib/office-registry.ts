@@ -52,10 +52,10 @@ export const offices: OfficeEntry[] = [
     city: 'Vancouver',
   },
   {
-    id: 'office-kerrisdale-dental',
-    name: 'Kerrisdale Dental Centre',
-    slug: 'kerrisdale-dental',
-    domain: 'https://kerrisdale-dental.123dentist.com',
-    city: 'Vancouver',
+    id: 'office-alpha-dental',
+    name: 'Alpha Dental Clinic',
+    slug: 'alpha-dental',
+    domain: 'https://alpha-dental.123dentist.com',
+    city: 'Montréal',
   },
 ]
