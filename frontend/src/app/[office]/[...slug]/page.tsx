@@ -3,6 +3,7 @@ import { sanityFetch } from '@/sanity/live'
 import { pageBySlugQuery, officeBySlugQuery } from '@/sanity/queries'
 import type { Page } from '@/sanity/types'
 import { PageBuilder } from '@/components/blocks/PageBuilder'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ office: string; slug: string[] }>
@@ -30,10 +31,12 @@ export async function generateMetadata({ params }: Props) {
     stega: false,
   })
 
-  return {
-    title: (page as any)?.seo?.metaTitle || (page as any)?.title || 'Page Not Found',
-    description: (page as any)?.seo?.metaDescription,
-  }
+  return buildMetadata({
+    seo: (page as any)?.seo,
+    fallbackTitle: (page as any)?.title || 'Page Not Found',
+    officeName: (office as any).name,
+    path: `/${officeSlug}/${pageSlug}`,
+  })
 }
 
 export default async function CatchAllPage({ params }: Props) {

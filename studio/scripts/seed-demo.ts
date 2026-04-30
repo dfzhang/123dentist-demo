@@ -130,6 +130,12 @@ const services = [
         'Every treatment plan is customized to your unique needs and goals. During your consultation, we\'ll discuss your options and create a plan that fits your lifestyle and budget.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Cosmetic Dentistry in Yaletown — Veneers, Whitening & More',
+      metaDescription:
+        'Transform your smile with cosmetic dentistry at Atlantis Dental Yaletown. Professional teeth whitening, porcelain veneers, and smile makeovers in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -147,6 +153,12 @@ const services = [
         'As a Diamond Invisalign Provider, Atlantis Dental has the experience and expertise to deliver exceptional results with clear aligner therapy. Our team has treated hundreds of patients with Invisalign.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Invisalign Diamond Provider — Atlantis Dental Yaletown',
+      metaDescription:
+        'Straighten your teeth discreetly with Invisalign at Atlantis Dental, a Diamond Invisalign Provider in Yaletown, Vancouver. Free consultation available.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -164,6 +176,12 @@ const services = [
         'Dental implants are the gold standard for replacing missing teeth. They provide a permanent, stable foundation for replacement teeth that look, feel, and function like your natural teeth.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dental Implants in Vancouver — Atlantis Dental Yaletown',
+      metaDescription:
+        'Replace missing teeth with permanent dental implants at Atlantis Dental Yaletown. Natural-looking results with experienced implant specialists in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -193,6 +211,12 @@ const teamMembers = [
       'Diamond Invisalign Provider',
       'Fellow, International Congress of Oral Implantologists',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Tom Karkanis — Lead Dentist at Atlantis Dental Yaletown',
+      metaDescription:
+        'Meet Dr. Tom Karkanis, founder of Atlantis Dental Yaletown. Over 20 years of experience in cosmetic and restorative dentistry. Diamond Invisalign Provider.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -214,6 +238,12 @@ const teamMembers = [
       'DMD, University of British Columbia',
       'Certified in Sedation Dentistry',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Lisa Chen — Family Dentist at Atlantis Dental Yaletown',
+      metaDescription:
+        'Meet Dr. Lisa Chen, associate dentist at Atlantis Dental Yaletown. Specializing in pediatric and family dentistry with a gentle, patient-focused approach.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -234,6 +264,12 @@ const teamMembers = [
     credentials: [
       'Diploma in Dental Hygiene, Vancouver Community College',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Sarah Jones — Dental Hygienist at Atlantis Dental Yaletown',
+      metaDescription:
+        'Meet Sarah Jones, registered dental hygienist at Atlantis Dental Yaletown. Over 10 years of experience in preventive dental care and patient education.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -466,6 +502,13 @@ const office = {
       ],
     },
   ],
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Atlantis Dental Yaletown — Dentist in Vancouver, BC',
+    metaDescription:
+      'Atlantis Dental Yaletown is your trusted dental care provider in downtown Vancouver. Cosmetic dentistry, Invisalign, implants, and family dental care since 2005.',
+    noIndex: false,
+  },
 }
 
 // =============================================================================
@@ -480,6 +523,13 @@ const homePage = {
   pageType: 'home',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Atlantis Dental Yaletown — Dentist in Downtown Vancouver',
+    metaDescription:
+      'Welcome to Atlantis Dental Yaletown. Offering cosmetic dentistry, Invisalign, dental implants, and family dental care in the heart of Yaletown, Vancouver.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero
     {
@@ -802,6 +852,13 @@ const aboutPage = {
   pageType: 'general',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'About Atlantis Dental — Our Team & Story',
+    metaDescription:
+      'Learn about Atlantis Dental Yaletown, our experienced dental team, and our commitment to providing exceptional dental care in Vancouver since 2005.',
+    noIndex: false,
+  },
   sections: [
     {
       _key: 'hero1',
@@ -907,6 +964,13 @@ const servicesPage = {
   pageType: 'general',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Dental Services — Atlantis Dental Yaletown',
+    metaDescription:
+      'Explore our full range of dental services including cosmetic dentistry, Invisalign, dental implants, and preventive care at Atlantis Dental Yaletown.',
+    noIndex: false,
+  },
   sections: [
     {
       _key: 'hero1',

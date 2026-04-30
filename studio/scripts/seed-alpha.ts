@@ -126,6 +126,12 @@ const services = [
         'Whether you prefer traditional metal braces, ceramic braces, or Invisalign clear aligners, we create a personalized treatment plan tailored to your goals and lifestyle. We use digital scanning — no messy impressions — and 3D treatment planning so you can see your projected results before you start.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Orthodontics & Braces — Alpha Dental Clinic Montréal',
+      metaDescription:
+        'Straighten your smile with braces or Invisalign at Alpha Dental Clinic in Montréal. Orthodontic treatment for children, teens, and adults. Free consultation.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -146,6 +152,12 @@ const services = [
         'Our implant team handles everything in-house — from the initial consultation and 3D imaging to surgical placement and final restoration. Most patients are surprised by how comfortable the process is.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dental Implants — Alpha Dental Clinic Montréal',
+      metaDescription:
+        'Replace missing teeth with dental implants at Alpha Dental Clinic in Montréal. Single implants, bridges, and full-arch solutions with in-house surgical team.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -166,6 +178,12 @@ const services = [
         'We take the time to explain your treatment options clearly and work with you to create a care plan that fits your needs and budget. Our goal is to keep your natural teeth healthy for life.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'General Dentistry — Alpha Dental Clinic Montréal',
+      metaDescription:
+        'Comprehensive general dentistry at Alpha Dental Clinic in Montréal. Check-ups, cleanings, fillings, and preventive care for the whole family.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -195,6 +213,12 @@ const teamMembers = [
       'Fellow, International Congress of Oral Implantologists',
       'Member, Ordre des dentistes du Québec',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Marc-André Lavoie — Lead Dentist at Alpha Dental Montréal',
+      metaDescription:
+        'Meet Dr. Marc-André Lavoie, founder of Alpha Dental Clinic in Montréal. Over 20 years of experience in implantology and oral surgery. Trilingual: FR/EN/ZH.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -221,6 +245,12 @@ const teamMembers = [
       'Invisalign Diamond Provider',
       'Member, Canadian Association of Orthodontists',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Wei Chen — Orthodontist at Alpha Dental Montréal',
+      metaDescription:
+        'Meet Dr. Wei Chen, certified orthodontist at Alpha Dental Clinic in Montréal. Invisalign Diamond Provider specializing in clear aligners and lingual braces.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -243,6 +273,12 @@ const teamMembers = [
       'Certified in Local Anesthesia',
       'Member, Ordre des hygiénistes dentaires du Québec',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Marie-Claire Beaulieu — Dental Hygienist at Alpha Dental',
+      metaDescription:
+        'Meet Marie-Claire Beaulieu, dental hygienist at Alpha Dental Clinic in Montréal. 12 years of experience in periodontal care and patient education.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -475,6 +511,13 @@ const office = {
       ],
     },
   ],
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Alpha Dental Clinic — Dentist in Côte-des-Neiges, Montréal',
+    metaDescription:
+      'Alpha Dental Clinic is your trusted dental care provider in Côte-des-Neiges, Montréal. Orthodontics, implants, general dentistry. Open 7 days. Trilingual: FR/EN/ZH.',
+    noIndex: false,
+  },
 }
 
 // =============================================================================
@@ -490,6 +533,13 @@ const homePage = {
   pageType: 'home', // REQUIRED — valid enum: home|about|services|service-detail|team|contact|new-patients|blog|testimonials|gallery|landing|generic
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Alpha Dental Clinic — Dentist in Montréal, QC',
+    metaDescription:
+      'Welcome to Alpha Dental Clinic in Côte-des-Neiges, Montréal. Orthodontics, dental implants, and general dentistry. Open 7 days a week. Trilingual team.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero — heading(req), subheading, backgroundImage, ctas, layout(full|split-right|split-left|centered)
     // NOTE: Using 'split-left' layout (vs Atlantis 'full', Broadway 'split-right')
@@ -735,6 +785,13 @@ const aboutPage = {
   pageType: 'about',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'About Alpha Dental Clinic — Our Team & Mission',
+    metaDescription:
+      'Learn about Alpha Dental Clinic in Montréal, our multilingual dental team, and our commitment to comprehensive dental care in Côte-des-Neiges since 2008.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero
     {
@@ -844,6 +901,13 @@ const servicesPage = {
   pageType: 'services',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Dental Services — Alpha Dental Clinic Montréal',
+    metaDescription:
+      'Explore dental services at Alpha Dental Clinic: orthodontics, dental implants, general dentistry, and more. Open 7 days in Côte-des-Neiges, Montréal.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero
     {

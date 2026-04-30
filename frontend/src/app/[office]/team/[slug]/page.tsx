@@ -4,6 +4,7 @@ import { teamMemberBySlugQuery, officeBySlugQuery } from '@/sanity/queries'
 import type { TeamMember } from '@/sanity/types'
 import { urlFor } from '@/sanity/image'
 import { RichText } from '@/components/ui/PortableText'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ office: string; slug: string }>
@@ -25,10 +26,13 @@ export async function generateMetadata({ params }: Props) {
     stega: false,
   })
 
-  return {
-    title: (member as any)?.seo?.metaTitle || (member as any)?.name || 'Team Member',
-    description: (member as any)?.seo?.metaDescription || (member as any)?.shortBio,
-  }
+  return buildMetadata({
+    seo: (member as any)?.seo,
+    fallbackTitle: (member as any)?.name || 'Team Member',
+    fallbackDescription: (member as any)?.shortBio,
+    officeName: (office as any).name,
+    path: `/${officeSlug}/team/${slug}`,
+  })
 }
 
 export default async function TeamMemberPage({ params }: Props) {

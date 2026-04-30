@@ -6,8 +6,27 @@ import { DisableDraftMode } from '@/components/DisableDraftMode'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: '123Dentist',
-  description: 'Your trusted dental care provider',
+  title: {
+    default: '123Dentist — Your Trusted Dental Care Provider',
+    template: '%s',
+  },
+  description:
+    'Find a trusted dentist near you. 123Dentist connects you with over 450 dental offices across Canada offering comprehensive dental care.',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://123dentist.com'
+  ),
+  openGraph: {
+    type: 'website',
+    siteName: '123Dentist',
+    locale: 'en_CA',
+  },
+  twitter: {
+    card: 'summary',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default async function RootLayout({

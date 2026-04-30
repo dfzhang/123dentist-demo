@@ -122,6 +122,12 @@ const services = [
         'We focus on preventive care and education, helping your family build healthy habits that last a lifetime. Regular checkups, professional cleanings, and early intervention are the foundation of our approach.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Family Dentistry — Broadway Smiles Vancouver',
+      metaDescription:
+        'Comprehensive family dental care at Broadway Smiles. Cleanings, exams, fillings, and preventive care for patients of all ages on the Broadway corridor.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -139,6 +145,12 @@ const services = [
         'Our professional whitening treatments deliver dramatic results that over-the-counter products simply cannot match. We offer both in-office Zoom whitening for immediate results and custom take-home trays for gradual brightening.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Professional Teeth Whitening — Broadway Smiles Vancouver',
+      metaDescription:
+        'Get a brighter smile with professional teeth whitening at Broadway Smiles. In-office Zoom whitening and custom take-home trays available in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -156,6 +168,12 @@ const services = [
         'When teeth are damaged, decayed, or missing, crowns and bridges offer a reliable, long-lasting solution. Our CEREC technology allows us to create same-day crowns right in our office — no temporary crowns or second visits needed.'
       ),
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dental Crowns & Bridges — Broadway Smiles Vancouver',
+      metaDescription:
+        'Restore damaged or missing teeth with custom crowns and bridges at Broadway Smiles. Same-day CEREC crowns available in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -184,6 +202,12 @@ const teamMembers = [
       'Fellow, Academy of General Dentistry',
       'Certified CEREC Provider',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Priya Patel — Lead Dentist at Broadway Smiles',
+      metaDescription:
+        'Meet Dr. Priya Patel, owner of Broadway Smiles. Over 15 years of experience in family and cosmetic dentistry on the Broadway corridor in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -205,6 +229,12 @@ const teamMembers = [
       'DDS, University of Toronto',
       'Member, Canadian Dental Association',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Dr. Kevin Nguyen — Associate Dentist at Broadway Smiles',
+      metaDescription:
+        'Meet Dr. Kevin Nguyen, associate dentist at Broadway Smiles. Specializing in restorative and emergency dentistry with a calm, reassuring approach.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -226,6 +256,12 @@ const teamMembers = [
       'Diploma in Dental Hygiene, Vancouver Community College',
       'Certified in Local Anesthesia',
     ],
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Amanda Lee — Dental Hygienist at Broadway Smiles',
+      metaDescription:
+        'Meet Amanda Lee, registered dental hygienist at Broadway Smiles. 8 years of experience providing gentle, thorough dental cleanings in Vancouver.',
+    },
     office: { _type: 'reference', _ref: OFFICE_ID },
     language: 'en',
   },
@@ -457,6 +493,13 @@ const office = {
       ],
     },
   ],
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Broadway Smiles — Family Dentist on Broadway, Vancouver',
+    metaDescription:
+      'Broadway Smiles is your neighbourhood family dentist on the Broadway corridor in Vancouver. Comprehensive dental care, teeth whitening, crowns, and more.',
+    noIndex: false,
+  },
 }
 
 // =============================================================================
@@ -472,6 +515,13 @@ const homePage = {
   pageType: 'home', // REQUIRED — valid enum: home|about|services|service-detail|team|contact|new-patients|blog|testimonials|gallery|landing|generic
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Broadway Smiles — Your Family Dentist in Vancouver',
+    metaDescription:
+      'Welcome to Broadway Smiles, your trusted family dentist on the Broadway corridor. Offering teeth whitening, crowns, family dentistry, and preventive care.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero — heading(req), subheading, backgroundImage, ctas, layout(full|split-right|split-left|centered)
     // NOTE: Using 'split-right' layout (vs Atlantis 'full') for visual differentiation
@@ -750,6 +800,13 @@ const aboutPage = {
   pageType: 'about',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'About Broadway Smiles — Our Team & Philosophy',
+    metaDescription:
+      'Learn about Broadway Smiles, our experienced dental team, and our commitment to family-focused dental care on the Broadway corridor in Vancouver.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero
     {
@@ -855,6 +912,13 @@ const servicesPage = {
   pageType: 'services',
   office: { _type: 'reference', _ref: OFFICE_ID },
   language: 'en',
+  seo: {
+    _type: 'seo',
+    metaTitle: 'Dental Services — Broadway Smiles Vancouver',
+    metaDescription:
+      'Explore dental services at Broadway Smiles: family dentistry, professional teeth whitening, same-day CEREC crowns, and more on the Broadway corridor.',
+    noIndex: false,
+  },
   sections: [
     // 1. Hero
     {

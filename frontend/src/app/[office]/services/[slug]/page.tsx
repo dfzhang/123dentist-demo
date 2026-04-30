@@ -4,6 +4,7 @@ import { serviceBySlugQuery, officeBySlugQuery } from '@/sanity/queries'
 import type { Service } from '@/sanity/types'
 import { urlFor } from '@/sanity/image'
 import { RichText } from '@/components/ui/PortableText'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ office: string; slug: string }>
@@ -25,10 +26,13 @@ export async function generateMetadata({ params }: Props) {
     stega: false,
   })
 
-  return {
-    title: (service as any)?.seo?.metaTitle || (service as any)?.name || 'Service',
-    description: (service as any)?.seo?.metaDescription || (service as any)?.shortDescription,
-  }
+  return buildMetadata({
+    seo: (service as any)?.seo,
+    fallbackTitle: (service as any)?.name || 'Service',
+    fallbackDescription: (service as any)?.shortDescription,
+    officeName: (office as any).name,
+    path: `/${officeSlug}/services/${slug}`,
+  })
 }
 
 export default async function ServicePage({ params }: Props) {

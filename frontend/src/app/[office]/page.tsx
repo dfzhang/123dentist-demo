@@ -3,6 +3,7 @@ import { sanityFetch } from '@/sanity/live'
 import { homePageQuery, officeBySlugQuery } from '@/sanity/queries'
 import type { Page } from '@/sanity/types'
 import { PageBuilder } from '@/components/blocks/PageBuilder'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ office: string }>
@@ -25,10 +26,13 @@ export async function generateMetadata({ params }: Props) {
     stega: false,
   })
 
-  return {
-    title: (page as any)?.seo?.metaTitle || `${(office as any).name} | 123Dentist`,
-    description: (page as any)?.seo?.metaDescription || (office as any).shortDescription,
-  }
+  return buildMetadata({
+    seo: (page as any)?.seo,
+    fallbackTitle: (office as any).name,
+    fallbackDescription: (office as any).description?.[0]?.value,
+    officeName: (office as any).name,
+    path: `/${officeSlug}`,
+  })
 }
 
 export default async function OfficeHomePage({ params }: Props) {
