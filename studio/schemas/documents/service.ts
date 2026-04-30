@@ -1,4 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { officeScopedIsUnique } from '../../lib/office-scoped'
 
 export const service = defineType({
   name: 'service',
@@ -36,7 +37,7 @@ export const service = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'name' },
+      options: { source: 'name', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),

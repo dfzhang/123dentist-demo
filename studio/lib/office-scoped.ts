@@ -16,7 +16,7 @@
 // nothing ('_id == "___nonexistent___"'). Show nothing, not everything.
 // =============================================================================
 
-import type { ReferenceFilterResolverContext } from 'sanity'
+import type { ReferenceFilterResolverContext, SlugIsUniqueValidator } from 'sanity'
 
 function officeScopedFilterFn({ document }: ReferenceFilterResolverContext) {
   const officeRef = (document?.office as { _ref?: string })?._ref
@@ -37,6 +37,32 @@ export function officeScopedRefOptions(
   return {
     filter: officeScopedFilterFn,
   }
+}
+
+// Slug uniqueness scoped to the same office + document type.
+// Allows duplicate slugs across offices (e.g. every office can have /about).
+// Falls back to global uniqueness for docs without an office field (office, insuranceProvider).
+export const officeScopedIsUnique: SlugIsUniqueValidator = async (slug, context) => {
+  const { document, getClient } = context
+  const client = getClient({ apiVersion: '2024-01-01' })
+  const officeRef = (document?.office as { _ref?: string })?._ref
+  const docType = document?._type
+
+  if (!officeRef) {
+    // No office field (e.g. office doc itself, insuranceProvider) — global uniqueness
+    const count = await client.fetch(
+      `count(*[_type == $type && slug.current == $slug && _id != $id])`,
+      { type: docType, slug, id: document?._id }
+    )
+    return count === 0
+  }
+
+  // Office-scoped: unique within same office + same document type
+  const count = await client.fetch(
+    `count(*[_type == $type && slug.current == $slug && office._ref == $officeId && _id != $id])`,
+    { type: docType, slug, officeId: officeRef, id: document?._id }
+  )
+  return count === 0
 }
 
 export function officeScopedArrayItem(refType: string) {

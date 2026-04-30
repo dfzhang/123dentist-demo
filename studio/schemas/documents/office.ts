@@ -1,4 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { officeScopedIsUnique } from '../../lib/office-scoped'
 
 export const office = defineType({
   name: 'office',
@@ -27,7 +28,7 @@ export const office = defineType({
       title: 'Slug',
       type: 'slug',
       group: 'info',
-      options: { source: 'name' },
+      options: { source: 'name', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
     }),
     // i18n field-level: tagline (string → internationalizedArrayString)

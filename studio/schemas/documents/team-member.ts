@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { officeScopedIsUnique } from '../../lib/office-scoped'
 
 export const teamMember = defineType({
   name: 'teamMember',
@@ -36,7 +37,7 @@ export const teamMember = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'name' },
+      options: { source: 'name', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),

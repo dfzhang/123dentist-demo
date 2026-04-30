@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { officeScopedIsUnique } from '../../lib/office-scoped'
 
 // Corporate-managed document — NO office reference.
 // Offices reference from this canonical list.
@@ -17,7 +18,7 @@ export const insuranceProvider = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'name' },
+      options: { source: 'name', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

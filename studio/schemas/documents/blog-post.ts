@@ -1,5 +1,5 @@
 import { defineType, defineField } from 'sanity'
-import { officeScopedRefOptions } from '../../lib/office-scoped'
+import { officeScopedRefOptions, officeScopedIsUnique } from '../../lib/office-scoped'
 
 export const blogPost = defineType({
   name: 'blogPost',
@@ -30,7 +30,7 @@ export const blogPost = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title' },
+      options: { source: 'title', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),
