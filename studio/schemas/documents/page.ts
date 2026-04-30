@@ -99,12 +99,15 @@ export const page = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'pageType',
+      officeName: 'office.name',
+      pageType: 'pageType',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, officeName, pageType }) {
+      const type = pageType ? pageType.charAt(0).toUpperCase() + pageType.slice(1) : ''
+      const parts = [officeName, type].filter(Boolean)
       return {
         title: title || 'Untitled Page',
-        subtitle: subtitle ? subtitle.charAt(0).toUpperCase() + subtitle.slice(1) : '',
+        subtitle: parts.join(' · '),
       }
     },
   },
