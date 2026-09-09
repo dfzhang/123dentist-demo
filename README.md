@@ -12,13 +12,15 @@ Multi-tenant content management system for 123Dentist's 450+ office network. Bui
 
 ### Workspace types
 
+Every office belongs to **exactly one** workspace — workspaces are mutually exclusive.
+
 | Workspace | Registered from | Structure |
 |-----------|----------------|-----------|
 | **Admin** | Hardcoded | Corporate view — all groups, all offices, all content |
-| **Office** (single-tenant) | `lib/office-registry.ts` | One workspace per office. Direct edit surface for a single practice. Original pattern. |
-| **Dental Group** (multi-office) | `lib/group-registry.ts` | One workspace per group. Top level lists the group's offices; drill in to edit each office's content. Groups can contain 1 or many offices. |
+| **Dental Group** (multi-office) | `lib/group-registry.ts` | One workspace per group. Owns 1+ offices, all defined inline on the group entry. Editors drill into an office to edit its content. |
+| **Office** (standalone) | `lib/office-registry.ts` | One workspace per office that is NOT claimed by any group. Same content tree as inside a group — just without the group layer. |
 
-Group workspaces and office workspaces **coexist**. An office listed in both registries appears both as a standalone workspace and inside its group's workspace — useful for demoing side-by-side. If you want group-only editing for an office, remove it from `office-registry.ts`.
+The `standaloneOffices()` helper in `lib/group-registry.ts` enforces zero overlap: any office ID appearing in a group's `offices[]` is filtered out of the standalone list, even if it's also present in `office-registry.ts`.
 
 ## Project Structure
 
@@ -91,16 +93,16 @@ cd frontend && pnpm dev --port 3000
 - **Frontend:** http://localhost:3000/atlantis-yaletown
 - **Presentation tool:** Open from Studio sidebar → live preview with click-to-edit
 
-### 6. (Optional) Backfill dental groups
+### 6. (Optional) Seed dental groups
 
-If you're seeding a fresh dataset with the demo groups from `lib/group-registry.ts`:
+To create the demo dental groups (Pacific + Northstar) with their own offices and home pages:
 
 ```bash
 cd studio
-SANITY_AUTH_TOKEN=sk... npx tsx scripts/backfill-groups.ts
+SANITY_AUTH_TOKEN=sk... npx tsx scripts/seed-groups.ts
 ```
 
-This creates the `dentalGroup` documents and sets the `group` reference on each member office.
+This creates the `dentalGroup` documents, creates a fresh `office` document per member office (with address, contact, hours, and a home page), and cleans up any stale group state from earlier runs.
 
 ## Content Model
 

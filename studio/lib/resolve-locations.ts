@@ -196,28 +196,16 @@ export function createLocationResolver(
  * A group workspace hosts content for multiple offices, so we can't hardcode
  * a single (officeId, officeSlug) pair. Instead, this resolver reads the
  * target document's `office._ref` and looks up the corresponding office in
- * the group's roster, then delegates to the same helpers used by the
+ * the passed-in roster, then delegates to the same helpers used by the
  * single-office resolver.
  *
  * Documents without an office field (or referencing an office outside the
  * group — shouldn't happen but defensive) get no locations banner.
- *
- * Note: The `group` parameter takes just the shape we need (officeIds) rather
- * than the full DentalGroupEntry type — avoids a cross-file type import for
- * something this small.
  */
-export function createGroupLocationResolver(group: {
-  officeIds: string[]
-}): DocumentLocationResolver {
-  // Lazy import to avoid circular imports (group-registry → office-registry).
-  // Evaluated once per resolver call, which is fine — the underlying arrays
-  // are static module-level constants.
-  const loadGroupOffices = (): OfficeEntry[] => {
-    const { officesForGroup } = require('./group-registry') as {
-      officesForGroup: (g: { officeIds: string[] }) => OfficeEntry[]
-    }
-    return officesForGroup(group)
-  }
+export function createGroupLocationResolver(
+  groupOffices: readonly OfficeEntry[]
+): DocumentLocationResolver {
+  const officesById = new Map(groupOffices.map((o) => [o.id, o]))
 
   return (params, context) => {
     // Only Pages and referenceable types have resolvable locations.
@@ -227,9 +215,6 @@ export function createGroupLocationResolver(group: {
     ) {
       return null
     }
-
-    const groupOffices = loadGroupOffices()
-    const officesById = new Map(groupOffices.map((o) => [o.id, o]))
 
     // First: look up the document's office reference to pick the right slug.
     const ctx = context as any

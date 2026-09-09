@@ -3,12 +3,13 @@
 // =============================================================================
 // Generates three kinds of workspaces:
 //   1. Admin — corporate-wide view of everything
-//   2. Office — one per office (single-tenant editing surface, original pattern)
-//   3. Dental Group — one per group; contains multiple offices, drill in to edit
+//   2. Dental Group — one per group; owns multiple offices, drill in to edit
+//   3. Office — one per standalone office (an office NOT claimed by any group)
 //
-// Office workspaces and Group workspaces coexist. Some offices are standalone
-// (only in office-registry.ts). Others belong to a group (listed in both
-// office-registry.ts AND group-registry.ts — they appear in both workspaces).
+// **Workspaces are mutually exclusive.** Every office belongs to exactly one
+// workspace: either the group workspace it's listed under, or its own
+// standalone workspace. The `standaloneOffices()` helper enforces this by
+// filtering office-registry.ts against every group's roster.
 //
 // i18n strategy:
 //   - Document-level (@sanity/document-internationalization) for content types
@@ -26,10 +27,11 @@ import { documentInternationalization } from '@sanity/document-internationalizat
 import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { assist } from '@sanity/assist'
 import { schemaTypes } from './schemas'
-import { offices, type OfficeEntry } from './lib/office-registry'
+import { type OfficeEntry } from './lib/office-registry'
 import {
   dentalGroups,
   officesForGroup,
+  standaloneOffices,
   type DentalGroupEntry,
 } from './lib/group-registry'
 import {
@@ -449,7 +451,7 @@ function groupPresentation(group: DentalGroupEntry) {
     resolve: {
       // Location resolver picks office context from document.office._ref at
       // runtime, so a single group-scoped resolver covers all member offices.
-      locations: createGroupLocationResolver(group),
+      locations: createGroupLocationResolver(groupOffices),
       mainDocuments: groupOffices.flatMap((office) => [
         {
           route: `/${office.slug}`,
@@ -591,5 +593,7 @@ function groupWorkspace(group: DentalGroupEntry) {
 export default defineConfig([
   adminWorkspace(),
   ...dentalGroups.map(groupWorkspace),
-  ...offices.map(officeWorkspace),
+  // Only offices NOT claimed by any group become standalone workspaces —
+  // this enforces zero overlap between workspaces.
+  ...standaloneOffices().map(officeWorkspace),
 ])
