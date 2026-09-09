@@ -31,6 +31,18 @@ export const office = defineType({
       options: { source: 'name', isUnique: officeScopedIsUnique },
       validation: (Rule) => Rule.required(),
     }),
+    // Group reference — optional. Offices without a group are "standalone"
+    // and get their own single-office workspace (original pattern).
+    // Offices with a group appear inside the group's workspace.
+    defineField({
+      name: 'group',
+      title: 'Dental Group',
+      type: 'reference',
+      to: [{ type: 'dentalGroup' }],
+      group: 'info',
+      description:
+        'Optional — assign this office to a dental group to include it in the group workspace. Leave empty for standalone offices.',
+    }),
     // i18n field-level: tagline (string → internationalizedArrayString)
     defineField({
       name: 'tagline',

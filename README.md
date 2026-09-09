@@ -5,10 +5,20 @@ Multi-tenant content management system for 123Dentist's 450+ office network. Bui
 ## Architecture
 
 - **Single Sanity dataset** — all offices share one dataset, scoped by `office._ref`
-- **451 programmatic workspaces** — one per office + admin, generated from office registry
+- **Three workspace types** — admin, per-office (single-tenant), and per-group (multi-office)
 - **Office-scoped content** — `officeScoped()` helpers enforce data isolation at the schema level
 - **Hybrid i18n** — document-level for pages/services/team/FAQ/testimonials, field-level for 5 office fields
 - **Presentation tool** — live preview with click-to-edit overlays and "Used on X pages" location resolver
+
+### Workspace types
+
+| Workspace | Registered from | Structure |
+|-----------|----------------|-----------|
+| **Admin** | Hardcoded | Corporate view — all groups, all offices, all content |
+| **Office** (single-tenant) | `lib/office-registry.ts` | One workspace per office. Direct edit surface for a single practice. Original pattern. |
+| **Dental Group** (multi-office) | `lib/group-registry.ts` | One workspace per group. Top level lists the group's offices; drill in to edit each office's content. Groups can contain 1 or many offices. |
+
+Group workspaces and office workspaces **coexist**. An office listed in both registries appears both as a standalone workspace and inside its group's workspace — useful for demoing side-by-side. If you want group-only editing for an office, remove it from `office-registry.ts`.
 
 ## Project Structure
 
@@ -75,15 +85,29 @@ cd frontend && pnpm dev --port 3000
 
 ### 5. Open
 
-- **Studio:** http://localhost:3333/atlantis-yaletown
+- **Admin:** http://localhost:3333/admin
+- **Studio (office):** http://localhost:3333/atlantis-yaletown
+- **Studio (group):** http://localhost:3333/pacific-dental-group
 - **Frontend:** http://localhost:3000/atlantis-yaletown
 - **Presentation tool:** Open from Studio sidebar → live preview with click-to-edit
 
+### 6. (Optional) Backfill dental groups
+
+If you're seeding a fresh dataset with the demo groups from `lib/group-registry.ts`:
+
+```bash
+cd studio
+SANITY_AUTH_TOKEN=sk... npx tsx scripts/backfill-groups.ts
+```
+
+This creates the `dentalGroup` documents and sets the `group` reference on each member office.
+
 ## Content Model
 
-### Document Types (8)
+### Document Types (9)
 | Type | Scope | i18n |
 |------|-------|------|
+| Dental Group | Corporate (owns offices) | None |
 | Office | Singleton per workspace | Field-level (5 fields) |
 | Page | Office-scoped | Document-level |
 | Service | Office-scoped | Document-level |

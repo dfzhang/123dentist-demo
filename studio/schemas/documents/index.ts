@@ -1,4 +1,5 @@
 export { office } from './office'
+export { dentalGroup } from './dental-group'
 export { insuranceProvider } from './insurance-provider'
 export { service } from './service'
 export { teamMember } from './team-member'

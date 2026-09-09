@@ -14,7 +14,8 @@
 // =============================================================================
 
 import { type DocumentLocationResolver } from 'sanity/presentation'
-import { map } from 'rxjs'
+import { map, of, switchMap, type Observable } from 'rxjs'
+import type { OfficeEntry } from './office-registry'
 
 // Types that can be referenced from page builder blocks
 const REFERENCEABLE_TYPES = [
@@ -186,5 +187,79 @@ export function createLocationResolver(
 
     // All other types — no locations banner
     return null
+  }
+}
+
+/**
+ * Create a DocumentLocationResolver for a group workspace.
+ *
+ * A group workspace hosts content for multiple offices, so we can't hardcode
+ * a single (officeId, officeSlug) pair. Instead, this resolver reads the
+ * target document's `office._ref` and looks up the corresponding office in
+ * the group's roster, then delegates to the same helpers used by the
+ * single-office resolver.
+ *
+ * Documents without an office field (or referencing an office outside the
+ * group — shouldn't happen but defensive) get no locations banner.
+ *
+ * Note: The `group` parameter takes just the shape we need (officeIds) rather
+ * than the full DentalGroupEntry type — avoids a cross-file type import for
+ * something this small.
+ */
+export function createGroupLocationResolver(group: {
+  officeIds: string[]
+}): DocumentLocationResolver {
+  // Lazy import to avoid circular imports (group-registry → office-registry).
+  // Evaluated once per resolver call, which is fine — the underlying arrays
+  // are static module-level constants.
+  const loadGroupOffices = (): OfficeEntry[] => {
+    const { officesForGroup } = require('./group-registry') as {
+      officesForGroup: (g: { officeIds: string[] }) => OfficeEntry[]
+    }
+    return officesForGroup(group)
+  }
+
+  return (params, context) => {
+    // Only Pages and referenceable types have resolvable locations.
+    if (
+      params.type !== 'page' &&
+      !REFERENCEABLE_TYPES.includes(params.type as any)
+    ) {
+      return null
+    }
+
+    const groupOffices = loadGroupOffices()
+    const officesById = new Map(groupOffices.map((o) => [o.id, o]))
+
+    // First: look up the document's office reference to pick the right slug.
+    const ctx = context as any
+    const officeLookup$: Observable<OfficeEntry | null> =
+      ctx.documentStore.listenQuery(
+        /* groq */ `*[_id == $id][0]{ "officeRef": office._ref }`,
+        { id: params.id },
+        { perspective: 'previewDrafts' }
+      ).pipe(
+        map((res: { officeRef?: string } | null) =>
+          res?.officeRef ? officesById.get(res.officeRef) ?? null : null
+        )
+      )
+
+    // Second: once we know the office, delegate to the appropriate single-office
+    // resolver. switchMap ensures we swap to a new subscription if the office
+    // reference on the document changes.
+    return officeLookup$.pipe(
+      switchMap((office) => {
+        if (!office) return of(null)
+        if (params.type === 'page') {
+          return resolvePageLocations(params as any, ctx, office.slug) as Observable<any>
+        }
+        return resolveReferenceableLocations(
+          params as any,
+          ctx,
+          office.id,
+          office.slug
+        ) as Observable<any>
+      })
+    )
   }
 }
