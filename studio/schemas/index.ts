@@ -21,6 +21,7 @@ import {
 // Document types
 import {
   office,
+  dentalGroup,
   insuranceProvider,
   service,
   teamMember,
@@ -70,8 +71,9 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   portableText,
   portableTextSimple,
 
-  // Documents (8)
+  // Documents (9)
   office,
+  dentalGroup,
   insuranceProvider,
   service,
   teamMember,
