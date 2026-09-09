@@ -1,20 +1,19 @@
 // =============================================================================
 // Group Registry — Build-time dental group list for workspace generation
 // =============================================================================
-// This is the source of truth for which dental groups get workspaces.
-// In production, this is generated from Sanity data at build time
-// (via scripts/generate-groups.ts). Studio rebuilds when groups change.
+// Source of truth for which dental groups get workspaces AND which offices
+// belong to them.
 //
-// Each entry maps to one Sanity workspace with:
-//   - Multi-office Structure Builder (drill in to any office to edit content)
-//   - Per-office initial value templates (office select → auto-set office._ref)
-//   - Per-office Presentation tool routes
+// **Invariant: zero overlap between workspaces.**
+//   - An office listed inside a group is owned by that group's workspace
+//     and does NOT get its own standalone workspace.
+//   - An office in office-registry.ts that is NOT claimed by any group
+//     gets its own standalone workspace.
+//   - The `standaloneOffices()` helper enforces this by filtering the
+//     office-registry against `groupedOfficeIds()`.
 //
-// This coexists with office-registry.ts:
-//   - offices without a group → standalone office workspaces (original pattern)
-//   - offices with a group    → available inside their group's workspace
-//     (the standalone workspace still exists as long as the office is listed
-//     in office-registry.ts — remove from that registry if you want group-only)
+// In production, this file would be generated from Sanity data at build
+// time (via scripts/generate-groups.ts). Studio rebuilds when groups change.
 // =============================================================================
 
 import type { OfficeEntry } from './office-registry'
@@ -29,19 +28,27 @@ export interface DentalGroupEntry {
   slug: string
   /** Corporate description for workspace subtitle */
   description: string
-  /** Sanity document _ids of the offices belonging to this group */
-  officeIds: string[]
+  /**
+   * The offices that live inside this group's workspace.
+   *
+   * Defined inline (not as _ref lookups into office-registry) because
+   * grouped offices are exclusive to their group — they do not appear
+   * as standalone workspaces and don't need to be in office-registry.
+   *
+   * The `id` on each entry is the Sanity document _id that will be used
+   * for the corresponding `office` document (created by seed-groups.ts).
+   */
+  offices: OfficeEntry[]
 }
 
 // =============================================================================
-// Placeholder registry — replace with generated data in production
+// Registry
 // =============================================================================
 // Demo setup:
-//   - "Pacific Dental Group" contains 2 offices (multi-office demo)
-//   - "Alpha Dental Group"   contains 1 office  (single-office group demo)
+//   - "Pacific Dental Group" — Vancouver, 2 offices  (multi-office group)
+//   - "Northstar Dental Group" — Montréal, 1 office  (single-office group)
 //
-// The offices are also listed in office-registry.ts, so each also gets its
-// own standalone workspace — that lets you show both patterns side by side.
+// None of these office IDs overlap with office-registry.ts.
 // =============================================================================
 
 export const dentalGroups: DentalGroupEntry[] = [
@@ -50,14 +57,37 @@ export const dentalGroups: DentalGroupEntry[] = [
     name: 'Pacific Dental Group',
     slug: 'pacific-dental-group',
     description: 'Vancouver — 2 offices',
-    officeIds: ['office-atlantis-yaletown', 'office-broadway-smiles'],
+    offices: [
+      {
+        id: 'office-pacific-kitsilano',
+        name: 'Pacific Dental — Kitsilano',
+        slug: 'pacific-kitsilano',
+        domain: 'https://pacific-kitsilano.123dentist.com',
+        city: 'Vancouver',
+      },
+      {
+        id: 'office-pacific-gastown',
+        name: 'Pacific Dental — Gastown',
+        slug: 'pacific-gastown',
+        domain: 'https://pacific-gastown.123dentist.com',
+        city: 'Vancouver',
+      },
+    ],
   },
   {
-    id: 'group-alpha-dental',
-    name: 'Alpha Dental Group',
-    slug: 'alpha-dental-group',
+    id: 'group-northstar-dental',
+    name: 'Northstar Dental Group',
+    slug: 'northstar-dental-group',
     description: 'Montréal — 1 office',
-    officeIds: ['office-alpha-dental'],
+    offices: [
+      {
+        id: 'office-northstar-plateau',
+        name: 'Northstar Dental — Plateau',
+        slug: 'northstar-plateau',
+        domain: 'https://northstar-plateau.123dentist.com',
+        city: 'Montréal',
+      },
+    ],
   },
 ]
 
@@ -65,14 +95,32 @@ export const dentalGroups: DentalGroupEntry[] = [
 // Helpers
 // =============================================================================
 
+/** All office IDs claimed by any group. Used to enforce zero-overlap. */
+export function groupedOfficeIds(): Set<string> {
+  const s = new Set<string>()
+  for (const g of dentalGroups) {
+    for (const o of g.offices) s.add(o.id)
+  }
+  return s
+}
+
 /**
- * Resolve the OfficeEntry objects for a group from the office registry.
- * Silently skips office IDs that don't exist in the registry so a stale
- * reference doesn't crash the Studio at startup.
+ * Offices that are NOT part of any group — these get standalone workspaces.
+ *
+ * Defensive: if someone accidentally lists a grouped office ID in
+ * office-registry.ts, this filter drops it so it can't also appear as
+ * its own workspace (preserving the zero-overlap invariant).
+ */
+export function standaloneOffices(): OfficeEntry[] {
+  const grouped = groupedOfficeIds()
+  return offices.filter((o) => !grouped.has(o.id))
+}
+
+/**
+ * Resolve the OfficeEntry objects for a group. Now trivial since the
+ * offices live inline on the group — kept as a function for API stability
+ * with the previous version.
  */
 export function officesForGroup(group: DentalGroupEntry): OfficeEntry[] {
-  const byId = new Map(offices.map((o) => [o.id, o]))
-  return group.officeIds
-    .map((id) => byId.get(id))
-    .filter((o): o is OfficeEntry => Boolean(o))
+  return group.offices
 }
